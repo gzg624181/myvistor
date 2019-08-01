@@ -1,0 +1,65 @@
+@charset "utf-8"; 
+i,em{font-style: normal;} 
+
+.clear{clear: both;}
+
+/* recharge index style */
+
+.slide{width:100%;}
+.slide img{width:100%;}
+.overHidden{overflow: hidden;height:100%;}
+.warp,.warp_btm{padding:.5rem 6%;background: white;border-bottom:1px solid #eee;}
+.warp_btm{margin-top:1rem;}
+#online_list li,#transfer_list li{padding:.5rem 0;height:2.5rem;line-height: 2.5rem;position: relative;}
+#online_list li i,#online_list li b,#online_list li em,#transfer_list li i,#transfer_list li b,#transfer_list li em{display:block;}
+#online_list li i,#online_list li em,#transfer_list li i,#transfer_list li em{position: absolute;background:url(../images/payicon-0216.png) no-repeat 0 5rem/5rem transparent;}
+#online_list li i,#transfer_list li i{width:2rem;height:2rem;left:0;top:1rem;}
+#online_list li.online_alipay i,#transfer_list li.alipay i{background-position:0 0;}
+#online_list li.online_wxpay i,#transfer_list li.wxpay i{background-position:0 -3.3rem;}
+#online_list li.online_qqpay i,#transfer_list li.qqpay i{background-position:0 -13.5rem;}
+#online_list li.online_bankpay i,#transfer_list li.bankpay i{background-position:0 -10.2rem;}
+#online_list li.online_yunshanfu i,#transfer_list li.yunshanfu i{background-position:0 -16.8rem;}
+
+#online_list li b,#transfer_list li b{width:60%;margin-left:9%;font-size:1.2rem;}
+
+#online_list li em,#transfer_list li em{width:2rem;height:2rem;right:0;top:1rem;background-position:-3.2rem -3.3rem;}
+#online_list li em.active{background-position:-3.2rem 0rem;}
+
+.payinput{margin:.5rem 0;}
+.payinput input{width:100%;border:none;background: none;height:2.5rem;line-height: 2.5rem;font-size:1.5rem;}
+.withdrawtips{margin-top:.5rem;border-top:1px solid #eee;color:#999;height:3rem;line-height: 3rem;}
+div.paytips{color:red;text-align:left;line-height: 2rem;font-size: 1rem;padding:0 1%;}
+div.paytips b{font-size:1.2rem;font-weight: bold;}
+div.paytips span{background: #FAEEEE;padding:.2rem;}
+
+#transfer_list a{display: block;color:#666;border-bottom:1px solid #eee;text-decoration: none;}
+#transfer_list li{height:2.8rem;line-height: 2.8rem;}
+#transfer_list a:last-child{border:none;}
+#transfer_list li em{background:url(../images/payicon-0216.png) no-repeat 0 5rem/4rem transparent;background-position:-2rem -5rem;opacity: 0.6;}
+
+/* recharge transfer detail style*/
+
+.transfer_card{width:88%;margin:2rem auto 0 auto;height:15.5rem;position: relative;}
+.transfer_card.card6{background:url(../images/paybg_alipay.png) no-repeat center top;background-size:100% auto;}
+.transfer_card.card7{background:url(../images/paybg_wx.png) no-repeat center top;background-size:100% auto;}
+.transfer_card.card8{background:url(../images/paybg_qq.png) no-repeat center top;background-size:100% auto;}
+.transfer_card.card9{background:url(../images/paybg_bank.png) no-repeat center top;background-size:100% auto;} 
+.transfer_card.card18{background:url(../images/paybg_yunshanfu.png) no-repeat center top;background-size:100% auto;} 
+.trans_title,.trans_name,.qrcode,.account_body{position:absolute;color:white;}
+.trans_title,.trans_name{top:1.5rem;left:28%;font-size:1.2rem;} 
+.trans_name{top:3.8rem;font-size:1.1rem;opacity: 0.8;}
+.account_body{left:8%;top:8.5rem;}
+.account_body.account_body_float{left:7.2rem;}
+.account_body .account{height:3rem;line-height: 3rem;font-size:1.6rem;}
+.account_body .account_name{font-size:1.1rem;opacity: 0.8;}
+.qrcode{width:4rem;height:4rem;padding:.2rem;background: white;border-radius:5px;top:9rem;left:7%;}
+.qrcode img{width:100%;height:100%;}
+
+.description{width:82%;margin:0 auto;color:#999;line-height: 2rem;}
+
+.btn_group{width:82%;margin:1rem auto;}
+.btn_group dt{width:45%;background:#4c8fff;color:white;font-size:1.1rem;text-align:center;height:2.5rem;line-height: 2.5rem;float:left;margin-right:10%;border-radius:3px;}
+.btn_group dt:nth-last-child(2){margin-right:0;}
+.backpaylist{display:block;height:2rem;line-height: 2rem;color:#4c8fff;text-align:center;text-decoration: none;font-size:1rem;}
+
+

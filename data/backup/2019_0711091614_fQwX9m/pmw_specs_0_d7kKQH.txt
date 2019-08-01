@@ -1,0 +1,2 @@
+INSERT INTO `pmw_specs` VALUES('1','武汉凤凰游乐','1','儿童票','40','10101297');
+INSERT INTO `pmw_specs` VALUES('2','武汉凤凰游乐','1','暑期票','40','10803454');

@@ -1,0 +1,5 @@
+INSERT INTO `pmw_uploads` VALUES('1','1503561821.jpg','uploads/image/20170824/1503561821.jpg','573492','image','1503558934');
+INSERT INTO `pmw_uploads` VALUES('2','1503564256.jpg','uploads/image/20170824/1503564256.jpg','432130','image','1503558935');
+INSERT INTO `pmw_uploads` VALUES('3','1503559450.jpg','uploads/image/20170824/1503559450.jpg','117013','image','1503558936');
+INSERT INTO `pmw_uploads` VALUES('4','1503568343.jpg','uploads/image/20170824/1503568343.jpg','220690','image','1503558938');
+INSERT INTO `pmw_uploads` VALUES('5','1503561156.jpg','uploads/image/20170824/1503561156.jpg','334894','image','1503558939');

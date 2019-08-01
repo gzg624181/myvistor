@@ -1,0 +1,1 @@
+INSERT INTO `pmw_agency` VALUES('2','uploads/image/20190704/1562227094953.png','壹合联华','武汉','张安','13163389351','/uploads/image/20190704/1562227133446.png','13163389351','ca74139854ed1d29eec8b3f318910f38','','59.173.196.176','中国-湖北-武汉','1562227094','2019-07-04','1','oz7S15GN_EPrXdVlGqeoXYl1EEhg','the formId is a mock one');

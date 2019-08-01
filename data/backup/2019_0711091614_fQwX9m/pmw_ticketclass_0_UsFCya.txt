@@ -1,0 +1,3 @@
+INSERT INTO `pmw_ticketclass` VALUES('7','景区门票','uploads/image/20190701/1561967792.png','1561604885');
+INSERT INTO `pmw_ticketclass` VALUES('8','夏日推荐','uploads/image/20190701/1561974378.png','1561604908');
+INSERT INTO `pmw_ticketclass` VALUES('9','周边景区','uploads/image/20190701/1561969295.png','1561604928');

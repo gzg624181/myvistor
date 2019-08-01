@@ -1,0 +1,864 @@
+DROP TABLE IF EXISTS `pmw_admin`;
+
+CREATE TABLE `pmw_admin` (
+  `id` smallint(5) NOT NULL AUTO_INCREMENT COMMENT '信息id',
+  `username` varchar(30) NOT NULL COMMENT '用户名',
+  `password` char(32) NOT NULL COMMENT '密码',
+  `nickname` char(32) NOT NULL COMMENT '昵称',
+  `question` tinyint(1) unsigned NOT NULL COMMENT '登录提问',
+  `answer` varchar(50) NOT NULL COMMENT '登录回答',
+  `levelname` tinyint(1) unsigned NOT NULL COMMENT '级别',
+  `checkadmin` enum('true','false') NOT NULL COMMENT '审核',
+  `loginip` char(20) NOT NULL COMMENT '登录IP',
+  `logintime` int(10) unsigned NOT NULL COMMENT '登录时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `pmw_admingroup`;
+
+CREATE TABLE `pmw_admingroup` (
+  `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT COMMENT '管理组id',
+  `groupname` varchar(30) NOT NULL COMMENT '管理组名称',
+  `description` text NOT NULL COMMENT '管理组描述',
+  `groupsite` varchar(30) NOT NULL COMMENT '默认进入站',
+  `checkinfo` set('true','false') NOT NULL COMMENT '审核状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='管理组列表';
+
+DROP TABLE IF EXISTS `pmw_adminnotes`;
+
+CREATE TABLE `pmw_adminnotes` (
+  `uname` varchar(30) NOT NULL COMMENT '用户名',
+  `body` mediumtext NOT NULL COMMENT '便签内容',
+  `posttime` int(10) unsigned NOT NULL COMMENT '提交时间',
+  `postip` varchar(30) NOT NULL COMMENT '提交IP',
+  PRIMARY KEY (`uname`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `pmw_adminprivacy`;
+
+CREATE TABLE `pmw_adminprivacy` (
+  `groupid` tinyint(3) unsigned NOT NULL COMMENT '所属管理组id',
+  `siteid` tinyint(1) unsigned NOT NULL COMMENT '站点id',
+  `model` varchar(30) NOT NULL COMMENT '管理模块',
+  `classid` int(10) NOT NULL COMMENT '类型id',
+  `action` varchar(10) NOT NULL COMMENT '可执行操作'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `pmw_agency`;
+
+CREATE TABLE `pmw_agency` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `cardpic` varchar(100) NOT NULL COMMENT '营业执照',
+  `company` varchar(100) NOT NULL COMMENT '旅行社名称',
+  `address` varchar(100) NOT NULL COMMENT '公司地址',
+  `name` varchar(50) NOT NULL COMMENT '联系人姓名',
+  `tel` varchar(11) NOT NULL COMMENT '联系电话',
+  `images` varchar(150) NOT NULL COMMENT '旅行社头像',
+  `account` varchar(20) NOT NULL COMMENT '账号',
+  `password` varchar(50) NOT NULL COMMENT '密码',
+  `agreement` text NOT NULL COMMENT '合同图片',
+  `regip` varchar(50) NOT NULL COMMENT '注册ip',
+  `getcity` varchar(100) NOT NULL COMMENT '当前城市',
+  `regtime` int(11) NOT NULL COMMENT '注册时间',
+  `ymdtime` date NOT NULL COMMENT '注册年月日',
+  `checkinfo` int(1) NOT NULL COMMENT '0待审核1审核通过2审核失败',
+  `openid` varchar(50) NOT NULL COMMENT 'openid',
+  `formid` varchar(100) NOT NULL COMMENT 'formid',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='旅游社';
+
+DROP TABLE IF EXISTS `pmw_agency_message`;
+
+CREATE TABLE `pmw_agency_message` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `tp` varchar(50) NOT NULL COMMENT '账户类型',
+  `name` varchar(50) NOT NULL COMMENT '企业名称',
+  `tel` varchar(20) NOT NULL COMMENT '联系电话',
+  `state` varchar(20) NOT NULL COMMENT '审核状态',
+  `randnumber` int(11) NOT NULL COMMENT '随机数',
+  `content` text NOT NULL COMMENT '失败原因',
+  `applytime` datetime NOT NULL COMMENT '申请时间',
+  `sendtime` datetime NOT NULL COMMENT '审核时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COMMENT='旅行社注册审核未通过模板消息表';
+
+DROP TABLE IF EXISTS `pmw_api`;
+
+CREATE TABLE `pmw_api` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `filename` varchar(100) NOT NULL COMMENT '接口名称',
+  `updatetime` datetime NOT NULL COMMENT '更新时间',
+  `explain` varchar(200) NOT NULL COMMENT '接口说明',
+  `parameter` varchar(100) NOT NULL COMMENT '接口参数，用|隔开',
+  `size` varchar(100) NOT NULL COMMENT '文件大小',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=283 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `pmw_banner`;
+
+CREATE TABLE `pmw_banner` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `type` varchar(20) NOT NULL COMMENT '类型',
+  `typename` varchar(100) NOT NULL COMMENT 'banner图片大类',
+  `title` varchar(100) NOT NULL COMMENT '图片标题',
+  `pic` varchar(100) NOT NULL COMMENT '图片链接',
+  `linkurl` varchar(200) NOT NULL COMMENT '跳转链接url',
+  `content` text NOT NULL COMMENT '图片简介',
+  `pictime` int(11) NOT NULL COMMENT '添加图片时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='首页轮播banner图片';
+
+DROP TABLE IF EXISTS `pmw_cascade`;
+
+CREATE TABLE `pmw_cascade` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '级联组id',
+  `groupname` varchar(30) NOT NULL COMMENT '级联组名称',
+  `groupsign` varchar(30) NOT NULL COMMENT '级联组标识',
+  `orderid` smallint(5) unsigned NOT NULL COMMENT '排列排序',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `pmw_cascadedata`;
+
+CREATE TABLE `pmw_cascadedata` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '级联数据id',
+  `dataname` char(30) NOT NULL COMMENT '级联数据名称',
+  `datavalue` char(20) NOT NULL COMMENT '级联数据值',
+  `datagroup` char(20) NOT NULL COMMENT '所属级联组',
+  `orderid` smallint(5) unsigned NOT NULL COMMENT '排列排序',
+  `level` tinyint(1) unsigned NOT NULL COMMENT '级联数据层次',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=20020 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `pmw_comment`;
+
+CREATE TABLE `pmw_comment` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `gid` int(11) NOT NULL COMMENT '导游id',
+  `aid` int(11) NOT NULL COMMENT '旅行社id',
+  `star` varchar(10) NOT NULL COMMENT '评价几星',
+  `content` text NOT NULL COMMENT '评价内容',
+  `addtime` int(20) NOT NULL COMMENT '添加时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `pmw_configs`;
+
+CREATE TABLE `pmw_configs` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '信息id',
+  `siteid` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT '站点id',
+  `classid` smallint(5) unsigned NOT NULL COMMENT '信息类别id',
+  `parentid` smallint(5) unsigned NOT NULL COMMENT '信息类别父id',
+  `parentstr` varchar(80) NOT NULL COMMENT '信息类别父id字符串',
+  `title` varchar(80) NOT NULL COMMENT '标题',
+  `flag` varchar(30) NOT NULL COMMENT '属性',
+  `picurl` varchar(100) NOT NULL COMMENT '缩略图片',
+  `orderid` smallint(5) unsigned NOT NULL COMMENT '排列排序',
+  `posttime` int(10) unsigned NOT NULL COMMENT '提交时间',
+  `checkinfo` enum('true','false') NOT NULL COMMENT '审核状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `pmw_cursor`;
+
+CREATE TABLE `pmw_cursor` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `jinName` varchar(100) NOT NULL COMMENT '行程安排',
+  `starttime` varchar(100) NOT NULL COMMENT '行程日期',
+  `days` varchar(50) NOT NULL COMMENT '行程时长',
+  `orders` varchar(100) NOT NULL COMMENT '当期订单',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='发布行程临时表';
+
+DROP TABLE IF EXISTS `pmw_diyfield`;
+
+CREATE TABLE `pmw_diyfield` (
+  `id` smallint(6) unsigned NOT NULL AUTO_INCREMENT COMMENT '自定义字段id',
+  `infotype` tinyint(1) unsigned NOT NULL COMMENT '所属模型',
+  `catepriv` varchar(255) NOT NULL COMMENT '所属栏目',
+  `fieldname` varchar(30) NOT NULL COMMENT '字段名称',
+  `fieldtitle` varchar(30) NOT NULL COMMENT '字段标题',
+  `fielddesc` varchar(255) NOT NULL COMMENT '字段提示',
+  `fieldtype` varchar(30) NOT NULL COMMENT '字段类型',
+  `fieldlong` varchar(10) NOT NULL COMMENT '字段长度',
+  `fieldsel` varchar(255) NOT NULL COMMENT '字段选项值',
+  `fieldcheck` varchar(80) NOT NULL COMMENT '校验正则',
+  `fieldcback` varchar(30) NOT NULL COMMENT '未通过提示',
+  `orderid` smallint(6) NOT NULL COMMENT '排列排序',
+  `checkinfo` enum('true','false') NOT NULL COMMENT '审核状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `pmw_diymenu`;
+
+CREATE TABLE `pmw_diymenu` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '自定义菜单id',
+  `siteid` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT '站点id',
+  `parentid` smallint(5) unsigned NOT NULL COMMENT '所属菜单id',
+  `classname` varchar(30) NOT NULL COMMENT '菜单项名称',
+  `linkurl` varchar(255) NOT NULL COMMENT '跳转链接',
+  `orderid` smallint(5) unsigned NOT NULL COMMENT '排列排序',
+  `checkinfo` enum('true','false') NOT NULL COMMENT '审核状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `pmw_diymodel`;
+
+CREATE TABLE `pmw_diymodel` (
+  `id` smallint(6) unsigned NOT NULL AUTO_INCREMENT COMMENT '自定义模型id',
+  `modeltitle` varchar(30) NOT NULL COMMENT '模型标题',
+  `modelname` varchar(30) NOT NULL COMMENT '模型名称',
+  `modeltbname` varchar(30) NOT NULL COMMENT '模型表名',
+  `defaultfield` varchar(80) NOT NULL COMMENT '预设栏目',
+  `orderid` smallint(6) NOT NULL COMMENT '排列排序',
+  `checkinfo` enum('true','false') NOT NULL COMMENT '审核状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `pmw_failedlogin`;
+
+CREATE TABLE `pmw_failedlogin` (
+  `username` char(30) NOT NULL COMMENT '用户名',
+  `ip` char(15) NOT NULL COMMENT '登录IP',
+  `time` int(10) unsigned NOT NULL COMMENT '登录时间',
+  `num` tinyint(1) NOT NULL COMMENT '失败次数',
+  `isadmin` tinyint(1) NOT NULL COMMENT '是否是管理员',
+  PRIMARY KEY (`username`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `pmw_feedback`;
+
+CREATE TABLE `pmw_feedback` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `mid` int(11) NOT NULL COMMENT '注册会员id',
+  `message` text NOT NULL COMMENT '帮助反馈内容',
+  `addtime` int(30) NOT NULL COMMENT '添加时间',
+  `addip` varchar(30) NOT NULL COMMENT '添加ip',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `pmw_formid`;
+
+CREATE TABLE `pmw_formid` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `formid` varchar(100) NOT NULL,
+  `openid` varchar(100) NOT NULL,
+  `guoqi_time` int(11) NOT NULL COMMENT '过期时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=490 DEFAULT CHARSET=utf8 COMMENT='用户保存的formid';
+
+DROP TABLE IF EXISTS `pmw_freetime`;
+
+CREATE TABLE `pmw_freetime` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `gid` int(11) NOT NULL COMMENT '导游id',
+  `content` text NOT NULL COMMENT '空闲时间',
+  `addtime` int(11) NOT NULL COMMENT '添加时间',
+  `usetime` int(11) NOT NULL COMMENT '使用时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='旅行社发布空闲时间';
+
+DROP TABLE IF EXISTS `pmw_guide`;
+
+CREATE TABLE `pmw_guide` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `name` varchar(30) NOT NULL COMMENT '导游姓名',
+  `sex` int(1) NOT NULL COMMENT '导游性别',
+  `card` text NOT NULL COMMENT '导游证',
+  `cardnumber` varchar(30) NOT NULL COMMENT '导游证号',
+  `tel` varchar(11) NOT NULL COMMENT '导游电话',
+  `images` text NOT NULL COMMENT '用户头像',
+  `agreement` text NOT NULL COMMENT '合同图片',
+  `account` varchar(20) NOT NULL COMMENT '账号',
+  `password` varchar(50) NOT NULL COMMENT '密码',
+  `content` text NOT NULL COMMENT '简介',
+  `pics` text NOT NULL COMMENT '相册',
+  `regip` varchar(20) NOT NULL COMMENT '注册ip',
+  `getcity` varchar(100) NOT NULL COMMENT '当前城市',
+  `regtime` int(11) NOT NULL COMMENT '注册时间',
+  `ymdtime` date NOT NULL COMMENT '注册年月日',
+  `checkinfo` int(1) NOT NULL COMMENT '0待审核1审核通过2审核失败',
+  `openid` varchar(100) NOT NULL COMMENT 'openid',
+  `formid` varchar(150) NOT NULL COMMENT 'formid',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='导游表';
+
+DROP TABLE IF EXISTS `pmw_info`;
+
+CREATE TABLE `pmw_info` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '单页id',
+  `classid` smallint(5) unsigned NOT NULL COMMENT '所属栏目id',
+  `mainid` smallint(5) NOT NULL COMMENT '二级类别id',
+  `picurl` varchar(100) NOT NULL COMMENT '缩略图片',
+  `content` mediumtext NOT NULL COMMENT '内容',
+  `posttime` int(10) unsigned NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `pmw_infoclass`;
+
+CREATE TABLE `pmw_infoclass` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '栏目id',
+  `siteid` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT '站点id',
+  `parentid` smallint(5) unsigned NOT NULL COMMENT '栏目上级id',
+  `parentstr` varchar(50) NOT NULL COMMENT '栏目上级id字符串',
+  `infotype` tinyint(1) unsigned NOT NULL COMMENT '栏目类型',
+  `classname` varchar(30) NOT NULL COMMENT '栏目名称',
+  `linkurl` varchar(255) NOT NULL COMMENT '跳转链接',
+  `picurl` varchar(100) NOT NULL COMMENT '缩略图片',
+  `picwidth` varchar(5) NOT NULL COMMENT '缩略图宽度',
+  `picheight` varchar(5) NOT NULL COMMENT '缩略图高度',
+  `seotitle` varchar(80) NOT NULL COMMENT 'SEO标题',
+  `keywords` varchar(50) NOT NULL COMMENT '关键词',
+  `description` varchar(255) NOT NULL COMMENT '描述',
+  `orderid` smallint(5) unsigned NOT NULL COMMENT '排列排序',
+  `checkinfo` enum('true','false') NOT NULL COMMENT '审核状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `pmw_infoclass_left`;
+
+CREATE TABLE `pmw_infoclass_left` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '栏目id',
+  `siteid` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT '站点id',
+  `parentid` smallint(5) unsigned NOT NULL COMMENT '栏目上级id',
+  `parentstr` varchar(50) NOT NULL COMMENT '栏目上级id字符串',
+  `infotype` tinyint(1) unsigned NOT NULL COMMENT '栏目类型',
+  `classname` varchar(30) NOT NULL COMMENT '栏目名称',
+  `linkurl` varchar(255) NOT NULL COMMENT '跳转链接',
+  `picurl` varchar(100) NOT NULL COMMENT '缩略图片',
+  `picwidth` varchar(5) NOT NULL COMMENT '缩略图宽度',
+  `picheight` varchar(5) NOT NULL COMMENT '缩略图高度',
+  `seotitle` varchar(80) NOT NULL COMMENT 'SEO标题',
+  `keywords` varchar(50) NOT NULL COMMENT '关键词',
+  `description` varchar(255) NOT NULL COMMENT '描述',
+  `orderid` smallint(5) unsigned NOT NULL COMMENT '排列排序',
+  `checkinfo` enum('true','false') NOT NULL COMMENT '审核状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=92 DEFAULT CHARSET=utf8 COMMENT='栏目表';
+
+DROP TABLE IF EXISTS `pmw_infoflag`;
+
+CREATE TABLE `pmw_infoflag` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '信息标记id',
+  `flag` varchar(30) NOT NULL COMMENT '标记名称',
+  `flagname` varchar(30) NOT NULL COMMENT '标记标识',
+  `orderid` smallint(5) unsigned NOT NULL COMMENT '排列排序',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `pmw_infoimg`;
+
+CREATE TABLE `pmw_infoimg` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '图片信息id',
+  `siteid` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT '站点id',
+  `classid` smallint(5) unsigned NOT NULL COMMENT '所属栏目id',
+  `parentid` smallint(5) unsigned NOT NULL COMMENT '所属栏目上级id',
+  `parentstr` varchar(80) NOT NULL COMMENT '所属栏目上级id字符串',
+  `mainid` smallint(5) NOT NULL COMMENT '二级类别id',
+  `mainpid` smallint(5) NOT NULL COMMENT '二级类别父id',
+  `mainpstr` varchar(80) NOT NULL COMMENT '二级累呗父id字符串',
+  `title` varchar(80) NOT NULL COMMENT '标题',
+  `colorval` char(10) NOT NULL COMMENT '字体颜色',
+  `boldval` char(10) NOT NULL COMMENT '字体加粗',
+  `flag` varchar(30) NOT NULL COMMENT '属性',
+  `source` varchar(50) NOT NULL COMMENT '文章来源',
+  `author` varchar(50) NOT NULL COMMENT '作者编辑',
+  `linkurl` varchar(255) NOT NULL COMMENT '跳转链接',
+  `keywords` varchar(50) NOT NULL COMMENT '关键词',
+  `description` varchar(255) NOT NULL COMMENT '摘要',
+  `content` mediumtext NOT NULL COMMENT '详细内容',
+  `picurl` varchar(100) NOT NULL COMMENT '缩略图片',
+  `picarr` text NOT NULL COMMENT '组图',
+  `hits` mediumint(8) unsigned NOT NULL COMMENT '点击次数',
+  `orderid` int(10) unsigned NOT NULL COMMENT '排列排序',
+  `posttime` int(10) NOT NULL COMMENT '更新时间',
+  `checkinfo` enum('true','false') NOT NULL COMMENT '审核状态',
+  `delstate` set('true') NOT NULL COMMENT '删除状态',
+  `deltime` int(10) unsigned NOT NULL COMMENT '删除时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `pmw_infolist`;
+
+CREATE TABLE `pmw_infolist` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '列表信息id',
+  `siteid` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT '站点id',
+  `classid` smallint(5) unsigned NOT NULL COMMENT '所属栏目id',
+  `parentid` smallint(5) unsigned NOT NULL COMMENT '所属栏目上级id',
+  `parentstr` varchar(80) NOT NULL COMMENT '所属栏目上级id字符串',
+  `mainid` smallint(5) NOT NULL COMMENT '二级类别id',
+  `mainpid` smallint(5) NOT NULL COMMENT '二级类别上级id',
+  `mainpstr` varchar(80) NOT NULL COMMENT '二级类别上级id字符串',
+  `title` varchar(80) NOT NULL COMMENT '标题',
+  `colorval` char(10) NOT NULL COMMENT '字体颜色',
+  `boldval` char(10) NOT NULL COMMENT '字体加粗',
+  `flag` varchar(30) NOT NULL COMMENT '属性',
+  `source` varchar(50) NOT NULL COMMENT '文章来源',
+  `author` varchar(50) NOT NULL COMMENT '作者编辑',
+  `linkurl` varchar(255) NOT NULL COMMENT '跳转链接',
+  `keywords` varchar(50) NOT NULL COMMENT '关键词',
+  `description` varchar(255) NOT NULL COMMENT '摘要',
+  `content` mediumtext NOT NULL COMMENT '详细内容',
+  `picurl` varchar(100) NOT NULL COMMENT '缩略图片',
+  `picarr` text NOT NULL COMMENT '组图',
+  `hits` mediumint(8) unsigned NOT NULL COMMENT '点击次数',
+  `orderid` int(10) unsigned NOT NULL COMMENT '排列排序',
+  `posttime` int(10) NOT NULL COMMENT '更新时间',
+  `checkinfo` enum('true','false') NOT NULL COMMENT '审核状态',
+  `delstate` set('true') NOT NULL COMMENT '删除状态',
+  `deltime` int(10) unsigned NOT NULL COMMENT '删除时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `pmw_infosrc`;
+
+CREATE TABLE `pmw_infosrc` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '来源id',
+  `srcname` varchar(30) NOT NULL COMMENT '来源名称',
+  `linkurl` varchar(80) NOT NULL COMMENT '来源地址',
+  `orderid` smallint(5) unsigned NOT NULL COMMENT '来源排序',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `pmw_jiesuan`;
+
+CREATE TABLE `pmw_jiesuan` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `aid` int(11) NOT NULL COMMENT '旅行社id',
+  `company` varchar(100) NOT NULL COMMENT '旅行社名称',
+  `time` varchar(20) NOT NULL COMMENT '行程年月',
+  `teamnumber` int(11) NOT NULL COMMENT '团队人数',
+  `days` int(11) NOT NULL COMMENT '行程天数',
+  `summoney` int(11) NOT NULL COMMENT '结款总金额',
+  `jiesuantime` int(11) NOT NULL COMMENT '计算时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='后台给旅行社当月的结算';
+
+DROP TABLE IF EXISTS `pmw_levea_message`;
+
+CREATE TABLE `pmw_levea_message` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `mid` int(11) NOT NULL COMMENT '会员id',
+  `type` varchar(100) NOT NULL COMMENT '类型',
+  `openid` varchar(100) NOT NULL,
+  `formid` varchar(100) NOT NULL,
+  `content` text NOT NULL,
+  `posttime` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户留言表';
+
+DROP TABLE IF EXISTS `pmw_lnk`;
+
+CREATE TABLE `pmw_lnk` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '快捷方式id',
+  `lnkname` varchar(30) NOT NULL COMMENT '快捷方式名称',
+  `lnklink` varchar(50) NOT NULL COMMENT '跳转链接',
+  `lnkico` varchar(50) NOT NULL COMMENT 'ico地址',
+  `orderid` smallint(5) unsigned NOT NULL COMMENT '排列排序',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `pmw_member`;
+
+CREATE TABLE `pmw_member` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `nickname` varchar(100) NOT NULL COMMENT '昵称',
+  `images` varchar(300) NOT NULL COMMENT '用户头像',
+  `sex` int(1) NOT NULL COMMENT '性别（0女 1男）',
+  `addtime` int(11) NOT NULL COMMENT '添加时间',
+  `openid` varchar(100) NOT NULL,
+  `checkinfo` int(1) NOT NULL COMMENT ' 是否上锁',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=74 DEFAULT CHARSET=utf8 COMMENT='小程序用户表';
+
+DROP TABLE IF EXISTS `pmw_members`;
+
+CREATE TABLE `pmw_members` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `nickname` varchar(100) NOT NULL COMMENT '昵称',
+  `images` varchar(300) NOT NULL COMMENT '用户头像',
+  `sex` int(1) NOT NULL COMMENT '性别（0女 1男）',
+  `addtime` int(11) NOT NULL COMMENT '添加时间',
+  `openid` varchar(50) NOT NULL COMMENT '用户关注的openid',
+  `sets` int(1) NOT NULL COMMENT '设为售票管理员1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='小程序用户表';
+
+DROP TABLE IF EXISTS `pmw_message`;
+
+CREATE TABLE `pmw_message` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `type` varchar(50) NOT NULL COMMENT '会员类型 (agency  guide)',
+  `messagetype` varchar(50) NOT NULL COMMENT '消息类型 (system 系统消息  template 模板消息)',
+  `templatetype` varchar(50) NOT NULL COMMENT 'cancel  取消行程   appointment预约行程, reg 注册成功 remind系统提醒 如果不是模板消息的话则为空',
+  `content` text NOT NULL COMMENT '消息内容',
+  `stitle` varchar(100) NOT NULL COMMENT '小标题',
+  `title` varchar(200) NOT NULL COMMENT '消息标题',
+  `mid` int(11) NOT NULL COMMENT '会员id(旅行社的id 或者导游的id)',
+  `faxtime` int(20) NOT NULL COMMENT '发布时间',
+  `state` int(1) NOT NULL COMMENT '状态(0,未读，1已读)',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='系统发送模板消息表';
+
+DROP TABLE IF EXISTS `pmw_music`;
+
+CREATE TABLE `pmw_music` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `title` varchar(100) NOT NULL COMMENT '音频标题',
+  `sharename` varchar(50) NOT NULL COMMENT '分享标题',
+  `url` varchar(100) NOT NULL COMMENT '文件地址',
+  `num` int(11) NOT NULL COMMENT '播放数量',
+  `codeurl` varchar(100) NOT NULL COMMENT '二维码地址',
+  `addtime` int(11) NOT NULL COMMENT '添加时间',
+  `orderid` int(11) NOT NULL COMMENT 'id',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='音频列表';
+
+DROP TABLE IF EXISTS `pmw_nav`;
+
+CREATE TABLE `pmw_nav` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '导航id',
+  `siteid` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT '站点id',
+  `parentid` smallint(5) unsigned NOT NULL COMMENT '导航分类',
+  `parentstr` varchar(50) NOT NULL COMMENT '导航分类父id字符串',
+  `classname` varchar(30) NOT NULL COMMENT '导航名称',
+  `linkurl` varchar(255) NOT NULL COMMENT '跳转链接',
+  `relinkurl` varchar(255) NOT NULL COMMENT '重写地址',
+  `picurl` varchar(100) NOT NULL COMMENT '导航图片',
+  `target` varchar(30) NOT NULL COMMENT '打开方式',
+  `orderid` smallint(5) unsigned NOT NULL COMMENT '排列排序',
+  `checkinfo` enum('true','false') NOT NULL COMMENT '隐藏导航',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `pmw_navigation`;
+
+CREATE TABLE `pmw_navigation` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '信息id',
+  `siteid` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT '站点id',
+  `classid` smallint(5) unsigned NOT NULL COMMENT '信息类别id',
+  `parentid` smallint(5) unsigned NOT NULL COMMENT '信息类别父id',
+  `parentstr` varchar(80) NOT NULL COMMENT '信息类别父id字符串',
+  `title` varchar(80) NOT NULL COMMENT '标题',
+  `flag` varchar(30) NOT NULL COMMENT '属性',
+  `picurl` varchar(100) NOT NULL COMMENT '缩略图片',
+  `orderid` smallint(5) unsigned NOT NULL COMMENT '排列排序',
+  `posttime` int(10) unsigned NOT NULL COMMENT '提交时间',
+  `checkinfo` enum('true','false') NOT NULL COMMENT '审核状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `pmw_online`;
+
+CREATE TABLE `pmw_online` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `uid` int(11) NOT NULL COMMENT '用户id',
+  `gid` int(11) NOT NULL COMMENT '游戏id',
+  `guoqitime` int(11) NOT NULL COMMENT '过期时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户上线记录表';
+
+DROP TABLE IF EXISTS `pmw_order`;
+
+CREATE TABLE `pmw_order` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `tid` int(11) NOT NULL COMMENT '票务id',
+  `jingquname` varchar(100) NOT NULL COMMENT '景区名称',
+  `type` varchar(50) NOT NULL COMMENT '下票单位（目前可能是导游或者旅行社）',
+  `did` int(11) NOT NULL COMMENT '下单人id',
+  `contactname` varchar(100) NOT NULL COMMENT '联系人姓名',
+  `contacttel` varchar(20) NOT NULL COMMENT '联系人电话',
+  `usetime` varchar(100) NOT NULL COMMENT '使用日期（varchar）',
+  `timestampuse` int(11) NOT NULL COMMENT '时间戳',
+  `price` varchar(50) NOT NULL COMMENT '单张票的价格',
+  `infactnums` varchar(50) NOT NULL COMMENT '实际取票数量',
+  `typename` varchar(100) NOT NULL COMMENT '票务类型（成人票，儿童票，优惠票）',
+  `nums` int(11) NOT NULL COMMENT '票务数量',
+  `totalamount` varchar(20) NOT NULL COMMENT '支付总金额',
+  `infacttotalamount` varchar(50) NOT NULL COMMENT '实际支付总金额',
+  `paytype` varchar(100) NOT NULL COMMENT '支付类型（线下支付，微信支付）',
+  `orderid` varchar(50) NOT NULL COMMENT '支付订单号',
+  `states` int(1) NOT NULL COMMENT '后台票务处理状态（默认未处理0，已处理1）',
+  `posttime` int(11) NOT NULL COMMENT '添加时间',
+  `ymd` date NOT NULL COMMENT '购买日期',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='购买票务订单  pmw_order';
+
+DROP TABLE IF EXISTS `pmw_paymode`;
+
+CREATE TABLE `pmw_paymode` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '支付方式id',
+  `classname` varchar(30) NOT NULL COMMENT '支付方式名称',
+  `orderid` smallint(5) unsigned NOT NULL COMMENT '排列排序',
+  `checkinfo` enum('true','false') NOT NULL COMMENT '审核状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `pmw_publish`;
+
+CREATE TABLE `pmw_publish` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `openid` varchar(50) NOT NULL,
+  `content` text NOT NULL COMMENT '添加文字',
+  `pic` varchar(100) NOT NULL COMMENT '添加图片',
+  `qrcode` varchar(300) NOT NULL COMMENT '二维码',
+  `addtime` int(11) NOT NULL COMMENT '添加时间',
+  `randnumber` int(11) NOT NULL,
+  `num` int(11) NOT NULL COMMENT '扫描数量',
+  `zan` int(11) NOT NULL COMMENT '点赞次数',
+  `checkinfo` int(1) NOT NULL COMMENT '0待审核1审核通过',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COMMENT='发布动态';
+
+DROP TABLE IF EXISTS `pmw_record`;
+
+CREATE TABLE `pmw_record` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `vistor_openid` varchar(100) NOT NULL COMMENT '访客opneid',
+  `poster_id` int(11) NOT NULL COMMENT '海报id',
+  `member_openid` varchar(100) NOT NULL COMMENT '会员用户id',
+  `vtime` int(11) NOT NULL COMMENT '访问时间',
+  `islook` int(1) NOT NULL COMMENT '是否查看0默认1已查看',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=521 DEFAULT CHARSET=utf8 COMMENT='访客记录';
+
+DROP TABLE IF EXISTS `pmw_searchlist`;
+
+CREATE TABLE `pmw_searchlist` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `keyword` varchar(100) NOT NULL COMMENT '搜索关键字',
+  `openid` varchar(100) NOT NULL COMMENT '用户的openid',
+  `posttime` int(11) NOT NULL COMMENT '搜索时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='搜索历史记录  pmw_searchlist';
+
+DROP TABLE IF EXISTS `pmw_selectdate`;
+
+CREATE TABLE `pmw_selectdate` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `tid` int(11) NOT NULL COMMENT '景区id',
+  `sid` int(11) NOT NULL COMMENT '景点规格id',
+  `years` int(4) NOT NULL COMMENT '年份',
+  `month` varchar(20) NOT NULL COMMENT '月份',
+  `days` varchar(10) NOT NULL COMMENT '日期',
+  `datetimes` date NOT NULL COMMENT '年月日',
+  `timestamps` int(11) NOT NULL COMMENT '时间戳',
+  `price` varchar(30) NOT NULL COMMENT '价格',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=731 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `pmw_share`;
+
+CREATE TABLE `pmw_share` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL COMMENT '分享标题',
+  `imagesurl` varchar(300) NOT NULL COMMENT '分享的图片地址',
+  `tubiaopic` varchar(300) NOT NULL COMMENT '小图标的图片',
+  `examplepic` varchar(300) NOT NULL COMMENT '实例图片',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='分享';
+
+DROP TABLE IF EXISTS `pmw_site`;
+
+CREATE TABLE `pmw_site` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '站点ID',
+  `sitename` varchar(30) NOT NULL COMMENT '站点名称',
+  `sitekey` varchar(30) NOT NULL COMMENT '站点标识',
+  `sitelang` varchar(50) NOT NULL COMMENT '站点语言包',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `pmw_specs`;
+
+CREATE TABLE `pmw_specs` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `names` varchar(100) NOT NULL COMMENT '景区名称',
+  `tid` int(11) NOT NULL COMMENT '景区id',
+  `tickettype` varchar(100) NOT NULL COMMENT '票务类型',
+  `normalmoney` int(100) NOT NULL COMMENT '最低价格',
+  `randnumber` int(11) NOT NULL COMMENT '随机数',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='景区票务';
+
+DROP TABLE IF EXISTS `pmw_sysevent`;
+
+CREATE TABLE `pmw_sysevent` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '信息id',
+  `uname` varchar(30) NOT NULL COMMENT '用户名',
+  `siteid` tinyint(1) unsigned NOT NULL COMMENT '站点id',
+  `model` varchar(30) NOT NULL COMMENT '操作模块',
+  `classid` int(10) unsigned NOT NULL COMMENT '栏目id',
+  `action` varchar(10) NOT NULL COMMENT '执行操作',
+  `posttime` int(10) NOT NULL COMMENT '操作时间',
+  `ip` varchar(20) NOT NULL COMMENT '操作ip',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=6146 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `pmw_ticket`;
+
+CREATE TABLE `pmw_ticket` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `names` varchar(100) NOT NULL COMMENT '景区名称',
+  `types` varchar(100) NOT NULL COMMENT '景区分类',
+  `flag` varchar(20) NOT NULL COMMENT '属性',
+  `lowmoney` varchar(50) NOT NULL COMMENT '最低价格',
+  `label` varchar(300) NOT NULL COMMENT '景区标签',
+  `remarks` text NOT NULL COMMENT '备注',
+  `level` int(11) NOT NULL COMMENT '景区等级',
+  `picarr` varchar(300) NOT NULL COMMENT '景区图片',
+  `specs` varchar(100) NOT NULL COMMENT '规格（票务名称，价格，时间）',
+  `content` text NOT NULL COMMENT '景区介绍',
+  `xuzhi` text NOT NULL COMMENT '景区须知',
+  `solds` int(11) NOT NULL COMMENT '已售数量起始值',
+  `checkinfo` int(1) NOT NULL DEFAULT '1' COMMENT '上线1，下线0',
+  `posttime` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='景区票务';
+
+DROP TABLE IF EXISTS `pmw_ticketclass`;
+
+CREATE TABLE `pmw_ticketclass` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL COMMENT '分类标题',
+  `icon` varchar(300) NOT NULL COMMENT '分类图标',
+  `posttime` int(11) NOT NULL COMMENT '添加时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='票务分类';
+
+DROP TABLE IF EXISTS `pmw_travel`;
+
+CREATE TABLE `pmw_travel` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `title` varchar(100) NOT NULL COMMENT '行程标题',
+  `starttime` int(11) NOT NULL COMMENT '开始时间',
+  `starttime_ymd` varchar(10) NOT NULL COMMENT '行程开始的年月日',
+  `endtime` int(11) NOT NULL COMMENT '结束时间',
+  `days` int(11) NOT NULL COMMENT '行程天数',
+  `num` int(11) NOT NULL COMMENT '团队人数',
+  `origin` varchar(200) NOT NULL COMMENT '客源地',
+  `content` text NOT NULL COMMENT '添加行程',
+  `money` varchar(20) NOT NULL COMMENT '导游费用',
+  `jiesuanmoney` varchar(20) NOT NULL COMMENT '结算价格',
+  `other` text NOT NULL COMMENT '其他备注',
+  `posttime` int(11) NOT NULL COMMENT '发布时间',
+  `fabu_y` varchar(4) NOT NULL COMMENT '发布年份',
+  `fabu_ym` varchar(20) NOT NULL COMMENT '发布年月',
+  `aid` int(11) NOT NULL COMMENT '旅行社id',
+  `company` varchar(100) NOT NULL COMMENT '旅行社名称',
+  `gid` varchar(50) NOT NULL COMMENT '接单的导游id',
+  `complete_y` varchar(10) NOT NULL COMMENT '已完成的年份',
+  `complete_ym` varchar(20) NOT NULL COMMENT '已完成的年月',
+  `complete_time` int(20) NOT NULL COMMENT '已经完成的具体时间',
+  `name` varchar(100) NOT NULL COMMENT '导游姓名',
+  `state` int(1) NOT NULL COMMENT '发布状态（0，待预约，1:待确认 2:已确认（已完成），如果导游没有确认，                 则系统默认在出发的前一天进行确认处理3:已取消，在已完成里面不能取消）4已失效5，未预约的时候取消行程',
+  `comment_state` int(1) NOT NULL COMMENT '0未评价1 已经评价',
+  `Settlement` varchar(10) NOT NULL DEFAULT 'NO' COMMENT '是否结算',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='旅行社发布旅游行程';
+
+DROP TABLE IF EXISTS `pmw_un_agency`;
+
+CREATE TABLE `pmw_un_agency` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `cardpic` varchar(100) NOT NULL COMMENT '营业执照',
+  `company` varchar(100) NOT NULL COMMENT '旅行社名称',
+  `address` varchar(100) NOT NULL COMMENT '公司地址',
+  `name` varchar(50) NOT NULL COMMENT '联系人姓名',
+  `tel` varchar(11) NOT NULL COMMENT '联系电话',
+  `images` varchar(150) NOT NULL COMMENT '旅行社头像',
+  `account` varchar(20) NOT NULL COMMENT '账号',
+  `password` varchar(50) NOT NULL COMMENT '密码',
+  `agreement` text NOT NULL COMMENT '合同图片',
+  `regip` varchar(50) NOT NULL COMMENT '注册ip',
+  `getcity` varchar(100) NOT NULL COMMENT '当前城市',
+  `regtime` int(11) NOT NULL COMMENT '注册时间',
+  `ymdtime` date NOT NULL COMMENT '注册年月日',
+  `checkinfo` int(1) NOT NULL COMMENT '0待审核1审核通过2审核失败',
+  `openid` varchar(50) NOT NULL COMMENT 'openid',
+  `formid` varchar(100) NOT NULL COMMENT 'formid',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='旅游社';
+
+DROP TABLE IF EXISTS `pmw_un_guide`;
+
+CREATE TABLE `pmw_un_guide` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `name` varchar(30) NOT NULL COMMENT '导游姓名',
+  `sex` int(1) NOT NULL COMMENT '导游性别',
+  `card` text NOT NULL COMMENT '导游证',
+  `cardnumber` varchar(30) NOT NULL COMMENT '导游证号',
+  `tel` varchar(11) NOT NULL COMMENT '导游电话',
+  `images` text NOT NULL COMMENT '用户头像',
+  `agreement` text NOT NULL COMMENT '合同图片',
+  `account` varchar(20) NOT NULL COMMENT '账号',
+  `password` varchar(50) NOT NULL COMMENT '密码',
+  `content` text NOT NULL COMMENT '简介',
+  `pics` text NOT NULL COMMENT '相册',
+  `regip` varchar(20) NOT NULL COMMENT '注册ip',
+  `getcity` varchar(100) NOT NULL COMMENT '当前城市',
+  `regtime` int(11) NOT NULL COMMENT '注册时间',
+  `ymdtime` date NOT NULL COMMENT '注册年月日',
+  `checkinfo` int(1) NOT NULL COMMENT '0待审核1审核通过2审核失败',
+  `openid` varchar(100) NOT NULL COMMENT 'openid',
+  `formid` varchar(150) NOT NULL COMMENT 'formid',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='导游表';
+
+DROP TABLE IF EXISTS `pmw_uploads`;
+
+CREATE TABLE `pmw_uploads` (
+  `id` mediumint(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '上传信息id',
+  `name` varchar(30) NOT NULL COMMENT '文件名称',
+  `path` varchar(100) NOT NULL COMMENT '文件路径',
+  `size` int(10) NOT NULL COMMENT '文件大小',
+  `type` enum('image','soft','media') NOT NULL COMMENT '文件类型',
+  `posttime` int(10) NOT NULL COMMENT '上传日期',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=510 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `pmw_webconfig`;
+
+CREATE TABLE `pmw_webconfig` (
+  `siteid` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT '站点id',
+  `varname` varchar(50) NOT NULL COMMENT '变量名称',
+  `varinfo` varchar(80) NOT NULL COMMENT '参数说明',
+  `vargroup` smallint(5) unsigned NOT NULL COMMENT '所属组',
+  `vartype` char(10) NOT NULL COMMENT '变量类型',
+  `varvalue` text NOT NULL COMMENT '变量值',
+  `orderid` smallint(5) unsigned NOT NULL COMMENT '排列排序',
+  `checkinfo` int(1) NOT NULL COMMENT '是否显示',
+  PRIMARY KEY (`varname`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `pmw_xieyi`;
+
+CREATE TABLE `pmw_xieyi` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `content` text NOT NULL COMMENT '用户协议',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='代理表';
+
+DROP TABLE IF EXISTS `pmw_yzm`;
+
+CREATE TABLE `pmw_yzm` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `phone` bigint(50) NOT NULL COMMENT '电话号码',
+  `code` int(6) NOT NULL COMMENT '验证码',
+  `start_time` datetime NOT NULL COMMENT '验证码开始时间',
+  `num` int(10) NOT NULL COMMENT '发送次数',
+  `date` date NOT NULL COMMENT '发送日期',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='发送验证码';
+
+DROP TABLE IF EXISTS `pmw_zan_record`;
+
+CREATE TABLE `pmw_zan_record` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `vistor_openid` varchar(100) NOT NULL COMMENT '访客opneid',
+  `poster_id` int(11) NOT NULL COMMENT '海报id',
+  `vtime` int(11) NOT NULL COMMENT '点赞时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='访客点赞记录（每个海报只能点赞一次）';
+

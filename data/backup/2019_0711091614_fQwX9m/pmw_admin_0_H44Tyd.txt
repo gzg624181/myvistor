@@ -1,0 +1,5 @@
+INSERT INTO `pmw_admin` VALUES('1','admin','a4d6e503f34371ea84ba94a0a21074c7','','0','','1','true','59.173.196.179','1562743437');
+INSERT INTO `pmw_admin` VALUES('2','gzg624181','f85cdd1700a7f8d30690aab3059f98e9','','0','','2','true','59.173.196.176','1562054855');
+INSERT INTO `pmw_admin` VALUES('3','gzg624182','f85cdd1700a7f8d30690aab3059f98e9','','0','','2','true','0.0.0.0','1492270004');
+INSERT INTO `pmw_admin` VALUES('4','test123456','14e1b600b1fd579f47433b88e8d85291','','0','','1','true','59.174.251.213','1561770488');
+INSERT INTO `pmw_admin` VALUES('6','cs123456','257939a95767cde48fee3693badb7689','','0','','3','true','117.136.52.220','1561364903');

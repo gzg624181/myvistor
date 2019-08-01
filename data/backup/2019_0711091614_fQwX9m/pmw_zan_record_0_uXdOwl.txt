@@ -1,0 +1,5 @@
+INSERT INTO `pmw_zan_record` VALUES('1','opiZd5YQAIF_vNuzjMs70xugfQgo','25','1562572099');
+INSERT INTO `pmw_zan_record` VALUES('2','opiZd5XDxhsX_CTTYIFOThXBF68Q','24','1562727465');
+INSERT INTO `pmw_zan_record` VALUES('3','opiZd5XDxhsX_CTTYIFOThXBF68Q','25','1562742958');
+INSERT INTO `pmw_zan_record` VALUES('4','opiZd5YQAIF_vNuzjMs70xugfQgo','1','1562748887');
+INSERT INTO `pmw_zan_record` VALUES('5','','21','1562806068');

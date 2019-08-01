@@ -1,0 +1,3 @@
+INSERT INTO `pmw_admin` VALUES('1','admin','852e9f9fcabf5018e53a7299c01f3d98','','0','','1','true','0.0.0.0','1511236813');
+INSERT INTO `pmw_admin` VALUES('2','gzg624181','f85cdd1700a7f8d30690aab3059f98e9','','0','','2','true','0.0.0.0','1510644505');
+INSERT INTO `pmw_admin` VALUES('3','gzg624182','f85cdd1700a7f8d30690aab3059f98e9','','0','','2','true','0.0.0.0','1492270004');

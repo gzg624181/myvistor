@@ -1,0 +1,194 @@
+$(document).ready(function(){
+	//动态添加大转盘的奖品与奖品区域背景颜色
+	turnplate.restaraunts = ["8.8元红包", "1888.8元红包", "28.8元红包", "888.8元红包", "88.8元红包", "288.8元红包", "188.8元红包 ", "8888.8元红包"];
+	turnplate.colors = ["#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF","#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF"];
+	
+	var rotateTimeOut = function (){
+		$('#wheelcanvas').rotate({
+			angle:0,
+			animateTo:2160,
+			duration:8000,
+			callback:function (){
+				alert('网络超时，请检查您的网络设置！');
+			}
+		});
+	};
+	var flag = -1,_status=true;
+	$.ajax({
+		type:"post",
+		cache:false,
+		url:'/index/activity/statcraffle',
+		datatype: "json",
+		error:function(data){layer.open({content:'网络超时，请检查您的网络设置！',skin:"msg",time:2});},
+		success:function(data)
+		{
+			switch(data.status)
+			{
+					case 0:
+					    _status = false;
+					    flag = 0;
+						layer.open({content:data.msg,skin:"msg",time:2});
+						break;
+					case 1:
+						$("#raffles").html(data.sum);
+						$('#raffles_exps').text(data.surplus);
+						$('#raffles_surplus_exps').text(28 - parseInt(data.surplus));
+						flag = data.sum;
+						break;
+			}
+
+		}
+	});
+
+	//旋转转盘 item:奖品位置; txt：提示语;
+	var rotateFn = function (item, txt){
+		var angles = item * (360 / turnplate.restaraunts.length) - (360 / (turnplate.restaraunts.length*2));
+		if(angles<270){
+			angles = 270 - angles; 
+		}else{
+			angles = 360 - angles + 270;
+		}
+		$('#wheelcanvas').stopRotate();
+		$('#wheelcanvas').rotate({
+			angle:0,
+			animateTo:angles+1800,
+			duration:8000,
+			callback:function (){
+				layer.open({content:"恭喜您获得"+txt,skin:"msg",time:2});
+				turnplate.bRotate = !turnplate.bRotate;
+			}
+		});
+	};
+
+	$('.pointer').click(function (){
+		if(flag==-1){
+           layer.open({content:'正在计算抽奖次数，请稍后...',skin:"msg",time:2});
+		    return false;
+		 }
+		 if (!_status){
+            layer.open({content:'活动还未开放',skin:"msg",time:2});
+		    return false;
+		  }
+		if (!flag){
+            layer.open({content:'您没有抽奖次数，快去下注吧',skin:"msg",time:2});
+		    return false;
+		  }
+		
+		if(turnplate.bRotate)return;
+		turnplate.bRotate = !turnplate.bRotate;
+		//获取随机数(奖品个数范围内)
+		$.ajax({
+			type:"post",
+			cache:false,
+			url:'/index/activity/doraffle',
+			datatype: "json",
+			error:function(data){layer.open({content:'网络超时，请检查您的网络设置！',skin:"msg",time:2});},
+			success:function(data)
+			{
+				switch(data.status)
+				{
+					case 0:
+						layer.open({content:data.msg,skin:"msg",time:2});
+						break;
+					case 1:
+						rotateFn(data.item, turnplate.restaraunts[data.item-1]); 
+						 $("#raffles").text(parseInt($("#raffles").text())-1); 
+						 --flag;
+						break;
+				}
+
+			}
+		});
+		
+	});
+});
+
+function rnd(n, m){
+	var random = Math.floor(Math.random()*(m-n+1)+n);
+	return random;
+	
+}
+
+
+//页面所有元素加载完毕后执行drawRouletteWheel()方法对转盘进行渲染
+window.onload=function(){
+	drawRouletteWheel();
+};
+
+function drawRouletteWheel() {    
+  var canvas = document.getElementById("wheelcanvas");    
+  if (canvas.getContext) {
+	  //根据奖品个数计算圆周角度
+	  var arc = Math.PI / (turnplate.restaraunts.length/2);
+	  var ctx = canvas.getContext("2d");
+	  //在给定矩形内清空一个矩形
+	  ctx.clearRect(0,0,422,422);
+	  //strokeStyle 属性设置或返回用于笔触的颜色、渐变或模式  
+	  ctx.strokeStyle = "#FFBE04";
+	  //font 属性设置或返回画布上文本内容的当前字体属性
+	  ctx.font = '16px Microsoft YaHei';      
+	  for(var i = 0; i < turnplate.restaraunts.length; i++) {       
+		  var angle = turnplate.startAngle + i * arc;
+		  ctx.fillStyle = turnplate.colors[i];
+		  ctx.beginPath();
+		  //arc(x,y,r,起始角,结束角,绘制方向) 方法创建弧/曲线（用于创建圆或部分圆）    
+		  ctx.arc(211, 211, turnplate.outsideRadius, angle, angle + arc, false);    
+		  ctx.arc(211, 211, turnplate.insideRadius, angle + arc, angle, true);
+		  ctx.stroke();  
+		  ctx.fill();
+		  //锁画布(为了保存之前的画布状态)
+		  ctx.save();   
+		  
+		  //----绘制奖品开始----
+		  ctx.fillStyle = "#E5302F";
+		  var text = turnplate.restaraunts[i];
+		  var line_height = 17;
+		  //translate方法重新映射画布上的 (0,0) 位置
+		  ctx.translate(211 + Math.cos(angle + arc / 2) * turnplate.textRadius, 211 + Math.sin(angle + arc / 2) * turnplate.textRadius);
+		  
+		  //rotate方法旋转当前的绘图
+		  ctx.rotate(angle + arc / 2 + Math.PI / 2);
+		  
+		  /** 下面代码根据奖品类型、奖品名称长度渲染不同效果，如字体、颜色、图片效果。(具体根据实际情况改变) **/
+		  if(text.indexOf("M")>0){//流量包
+			  var texts = text.split("M");
+			  for(var j = 0; j<texts.length; j++){
+				  ctx.font = j == 0?'bold 20px Microsoft YaHei':'16px Microsoft YaHei';
+				  if(j == 0){
+					  ctx.fillText(texts[j]+"M", -ctx.measureText(texts[j]+"M").width / 2, j * line_height);
+				  }else{
+					  ctx.fillText(texts[j], -ctx.measureText(texts[j]).width / 2, j * line_height);
+				  }
+			  }
+		  }else if(text.indexOf("M") == -1 && text.length>6){//奖品名称长度超过一定范围 
+			  text = text.substring(0,6)+"||"+text.substring(6);
+			  var texts = text.split("||");
+			  for(var j = 0; j<texts.length; j++){
+				  ctx.fillText(texts[j], -ctx.measureText(texts[j]).width / 2, j * line_height);
+			  }
+		  }else{
+			  //在画布上绘制填色的文本。文本的默认颜色是黑色
+			  //measureText()方法返回包含一个对象，该对象包含以像素计的指定字体宽度
+			  ctx.fillText(text, -ctx.measureText(text).width / 2, 0);
+		  }
+		  
+		  //添加对应图标
+		  if(text.indexOf("8.8")>0){
+			  var img= document.getElementById("shan-img");
+			  img.onload=function(){  
+				  ctx.drawImage(img,-17,24);      
+			  }; 
+			  ctx.drawImage(img,-17,24);  
+		  }else if(text.indexOf("8.8")>=0){
+			  var img= document.getElementById("sorry-img");
+			  img.onload=function(){  
+				  ctx.drawImage(img,-15,10);      
+			  };  
+			  ctx.drawImage(img,-15,10);  
+		  }
+		  //把当前画布返回（调整）到上一个save()状态之前 
+		  ctx.restore();
+		  //----绘制奖品结束----
+	  }     
+  } 
+}

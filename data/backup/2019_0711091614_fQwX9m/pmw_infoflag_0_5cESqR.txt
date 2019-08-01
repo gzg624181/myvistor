@@ -1,0 +1,2 @@
+INSERT INTO `pmw_infoflag` VALUES('1','h','首页','1');
+INSERT INTO `pmw_infoflag` VALUES('3','f','幻灯','3');

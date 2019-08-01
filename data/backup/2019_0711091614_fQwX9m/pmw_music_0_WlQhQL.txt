@@ -1,0 +1,4 @@
+INSERT INTO `pmw_music` VALUES('1','支付宝到账','','https://ceshi.yishekj.xyz/uploads/image/20190601/1559387336.mp3','114','https://ceshi.yishekj.xyz/uploads/erweima/20190601062017.png','1559384384','3');
+INSERT INTO `pmw_music` VALUES('4','曾小贤笑声','','https://ceshi.yishekj.xyz/uploads/image/20190604/1559623943.mp3','1694','https://ceshi.yishekj.xyz/uploads/erweima/20190604103257.png','1559615346','6');
+INSERT INTO `pmw_music` VALUES('3','王者荣耀开场','','https://ceshi.yishekj.xyz/uploads/image/20190604/1559618119.mp3','1013','https://ceshi.yishekj.xyz/uploads/erweima/20190604102741.png','1559615117','5');
+INSERT INTO `pmw_music` VALUES('5','重要公告','分享标题测试','uploads/image/20190601/1559387336.mp3','11','/uploads/erweima/20190701051542.png','1561972484','7');

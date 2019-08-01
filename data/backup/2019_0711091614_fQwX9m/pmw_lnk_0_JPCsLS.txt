@@ -1,0 +1,5 @@
+INSERT INTO `pmw_lnk` VALUES('1','导游列表','guide.php','templates/images/lnkBg01.png','1');
+INSERT INTO `pmw_lnk` VALUES('2','旅行社列表','agency.php','templates/images/lnkBg02.png','2');
+INSERT INTO `pmw_lnk` VALUES('3','景区列表','scenic.php','templates/images/lnkBg03.png','3');
+INSERT INTO `pmw_lnk` VALUES('4','所有订单','allorder.php','templates/images/lnkBg04.png','4');
+INSERT INTO `pmw_lnk` VALUES('5','发送模板消息','send_template_message.php','templates/images/boldBg.png','5');

@@ -1,0 +1,2 @@
+INSERT INTO `pmw_banner` VALUES('1','','','添加Banner轮播图片1','uploads/image/20190710/1562745501.jpg','','','1562742403');
+INSERT INTO `pmw_banner` VALUES('2','','','.怎么申请提现？','uploads/image/20190710/1562748525.png','','','1562742591');

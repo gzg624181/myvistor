@@ -1,0 +1,11 @@
+旅游之家后台文件列表
+
+1.会员管理
+  导游详情   guide.php
+          修改导游详情  guide_update.php
+          删除导游详情
+          程序处理页面  guide_save.php
+
+  旅行社详情 agency.php
+            修改旅行社详情   agency_update.php
+          

@@ -1,0 +1,14 @@
+INSERT INTO `pmw_nav` VALUES('1','1','0','0,','主菜单','#','','','','1','true');
+INSERT INTO `pmw_nav` VALUES('2','1','1','0,1,','首　页','index.php','index.html','','','2','true');
+INSERT INTO `pmw_nav` VALUES('3','1','1','0,1,','关于我们','about.php','about-2-1.html','','','3','true');
+INSERT INTO `pmw_nav` VALUES('4','1','1','0,1,','新闻中心','news.php','news-4-1.html','','','4','true');
+INSERT INTO `pmw_nav` VALUES('5','1','1','0,1,','产品展示','product.php','product-5-1.html','','','5','true');
+INSERT INTO `pmw_nav` VALUES('6','1','1','0,1,','案例展示','case.php','case-8-1.html','','','6','true');
+INSERT INTO `pmw_nav` VALUES('7','1','1','0,1,','人才招聘','join.php','join-1.html','','','7','true');
+INSERT INTO `pmw_nav` VALUES('8','1','1','0,1,','客户留言','message.php','message-1.html','','','8','true');
+INSERT INTO `pmw_nav` VALUES('9','1','1','0,1,','联系我们','contact.php','contact-9-1.html','','','9','true');
+INSERT INTO `pmw_nav` VALUES('10','1','5','0,1,5,','笔记本电脑','product.php?cid=6','product-6-1.html','','','10','true');
+INSERT INTO `pmw_nav` VALUES('11','1','5','0,1,5,','智能手机','product.php?cid=7','product-7-1.html','','','11','true');
+INSERT INTO `pmw_nav` VALUES('12','1','1','0,1','更多','javascript:;','','','','12','true');
+INSERT INTO `pmw_nav` VALUES('13','1','12','0,1,12,','软件下载','soft.php','soft-11-1.html','','','13','true');
+INSERT INTO `pmw_nav` VALUES('14','1','12','0,1,12,','商品展示','goods.php','goods-12-0-1.html','','','14','true');

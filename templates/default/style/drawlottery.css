@@ -1,0 +1,87 @@
+﻿body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,table,td,img,div{margin:0;padding:0;border:0;}
+body{color:#333; font-size:12px;font-family:"Microsoft YaHei"}
+ul,ol{list-style-type:none;}
+i,em{font-style: normal;}
+select,input,img,select{vertical-align:middle;}
+input{ font-size:12px;}
+a{ text-decoration:none; color:#000;}
+a:hover{color:#c00; text-decoration:none;}
+.clear{clear:both;}
+
+/* 大转盘样式 */
+body{overflow-x:hidden;background: url(../images/rafflebg.png) no-repeat left bottom #ed304e;background-size:100% auto;height:100%;min-height:100%;}
+.bet-btn{
+	height: 194px;
+	width: 100%;
+}
+.bet-btn a{
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+h4.tit{
+	font-size: 1rem;
+	line-height:2rem;
+	width: 94%;
+	margin: 0.5rem auto;
+	text-align: center;
+	color: #fff100;
+}
+.tip{ 
+	margin: 1rem auto; 
+	font-size: .9rem;
+	color: #333;
+	font-weight: bold;
+	text-align: center; 
+	width:100%;opacity: 0.8;border-radius: 0;background:#fff100;height:auto;line-height: 1.4rem;padding:.3rem 0;box-shadow: 0 0 10px #F6E242;
+}
+.tip i{font-size:1rem;font-weight:bold;color:red;font-style: normal;}
+.tip b{font-style: normal;font-size:.8rem;color:#E44444;padding:0 .1rem;}
+.tip span{font-size:.8rem;font-weight: normal;color:#555;}
+
+#raffle{}
+.shadow-box{
+	width: 75%;
+	background: #d50a0c;
+	border-radius: 50%;
+	height: 3rem;
+	margin: 0 auto;
+	margin-top: -1.5rem;
+}
+.cs{
+	width: 80%;
+	margin: 0.5rem auto;
+	font-size: 1.2rem;
+	color: #fff;
+	text-align: center;
+}
+.cs i{
+	font-style: normal;
+	font-size: 1.4rem;
+	color: #fff100;
+}
+.ratips{padding-left:1rem;color:white;line-height: 1.2rem;}
+.ratips h4{line-height:2rem;font-size:1rem;}
+.ratips p{font-size:.8rem;}
+.bet-btn2{
+	width: 30%;
+	margin: 0 auto;
+	margin-top: 0.5rem;
+	margin-bottom: 0;
+}
+.bet-btn2 button{
+	width: 100%;
+	background: #fff100;
+	height: 2.4rem;
+	line-height: 2.4rem;
+	font-size: 1.2rem;
+	color: #6c4104;
+	border-radius: 12px;
+	border:none;
+	font-weight: bold;
+
+}
+.banner{display:block;width:80%;margin-left:auto;margin-right:auto;}
+.banner .turnplate{display:block;width:100%;position:relative;}
+.banner .turnplate canvas.item{width:100%;}
+.banner .turnplate img.pointer{position:absolute;width:31.5%;height:42.5%;left:34.6%;top:23%;}

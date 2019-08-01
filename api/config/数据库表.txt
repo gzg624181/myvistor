@@ -1,0 +1,232 @@
+旅游之家数据库表
+
+1.导游表 pmw_guide
+
+id
+name          导游姓名(varchar)
+sex           导游性别(int)
+card          导游证(varchar)
+cardnumber    导游证号(varchar)
+tel           导游电话(varchar)
+images        导游头像(varchar)默认第一次拉取微信头像
+account       账号(varchar)
+password      密码(varchar)
+content       简介(选填)(text)
+pics          导游相册 (选填)(text)
+regtime       注册时间 (int)
+ymdtime       注册年月日（date）
+regip         注册ip（varchar)
+getcity       注册获取当前得城市（varchar)
+checkinfo     注册审核状态（0待审核1审核通过2审核失败）
+openid        用户通过小程序进入得到得openid
+
+
+
+2.旅行社表 pmw_agency
+
+id
+cardpic         营业执照(varchar)
+address         公司地址(varchar)
+name            联系人姓名(varchar)
+company         旅行社名称（varchar）
+tel             联系电话(varchar)
+images          导游头像(varchar)默认第一次拉取微信头像
+account         账号(varchar)
+password        密码(varchar)
+regtime         注册时间(int)
+ymdtime         注册年月日（date）
+regip           注册ip（varchar)
+getcity         注册获取当前得城市（varchar)
+checkinfo       注册审核状态（0待审核1审核通过2审核失败）
+openid          用户通过小程序进入得到得openid
+
+
+3.旅行社注册未成功发送模板消息  pmw_agency_message
+
+id
+tp             账户类型(varchar)
+name           企业名称(varchar)
+tel            联系电话(varchar)
+state          审核状态(varchar)
+content        失败原因(content)
+applytime      申请时间(datetime)
+sendtime       审核时间(datetime)
+
+
+4.首页轮换图片 pmw_banner
+
+id
+title           图片标题
+pic             图片链接
+content         图片简介
+pictime         添加图片时间
+
+5.账户明细    pmw_record
+
+id
+money_list     金额
+types          类型  充值 recharge   提现 take_money    返水  back_money
+mid            会员id
+time_list      添加时间
+
+6.接口列表  pmw_api
+
+id
+filename       接口名称
+updatetime     更新时间
+explain        接口说明
+parameter      接口参数，用|隔开
+size           文件大小
+
+7.会员充值表   pmw_charge
+
+id
+mid            充值会员id
+chargeuid      充值会员uid
+chargenumber   充值金额
+chargegive     充值赠送
+chargetime     充值时间
+charge_ymd     充值时间年月日
+chargetype     充值类型（0：后台 1：支付宝  2：微信   3：银联   4：云闪付）
+chargetelephone充值账号电话号码
+randnumber     随机数
+chargeorder    充值订单
+
+8.关于app  pmw_config
+
+id
+title          配置标题
+content        配置内容
+addtime        添加时间
+
+  备注：  id=1  关于APP介绍
+         id=2   代理制度
+
+9.游戏列表   pmw_game
+
+id
+gamename         游戏名称
+game             游戏英文简写
+gamepic          游戏图片
+gamenumber       游戏在线人数（暂定）
+gamedescription  游戏赔率说明
+remark           游戏备注
+gametypes        游戏分类
+gamewho          游戏用户名称
+gametime         游戏更新时间
+gameonline       游戏是否在线
+orderid          排序
+
+
+10.公告中心   pmw_gonggao
+
+id
+title            公告标题
+type             公告类型  （系统消息：xiaoxi   最新公告：newgonggao   会员必读：bidu）
+content          公告内容
+issuetime        发布时间
+
+11.重要公告    pmw_important
+
+id
+content          公告内容
+fbr              发布人
+faxtime          发布时间
+
+12.短信验证码   pmw_yzm
+
+id
+phone          发送短信号码
+code           发送验证码
+start_time      验证码开始时间
+num            发送次数
+date           发布日期
+
+13.会员提现记录  pmw_pickmoney
+
+id
+mid               会员id
+pick_uid          提现会员uid
+pick_number       提现金额
+pick_time         提现时间
+pick_posttime     提现确认发放时间
+pick_typesid      提现到银行卡或者支付宝账号类型id
+pick_telephone    提现会员手机
+randnumber        随机数
+pick_order        提现订单号码
+pick_statues      提现状态（0，未发放提现金额   1，发放了提现金额）
+
+
+14.会员下线转账记录  pmw_transfer
+
+id
+mid                会员id
+transfer_money     转账金额
+transfer_uid       转账会员uid
+transfer_bid       转账到下线会员的uid
+transfer_time      转账时间
+
+
+15.开奖号码    pmw_kjnumber
+
+id
+kj_qishu           开奖期数
+kj_time            开奖时间
+kj_number          开奖号码
+kj_gameid          开奖游戏id
+
+
+16.下注记录   pmw-xiazhuorder
+
+id
+mid                  会员id
+xiazhu_money         下注金额
+xiazhu_jiangjin      下注之后的奖金
+xiazhu_number        下注数字
+xiazhu_type          下注游戏类别
+xiazhu_qishu         下注期数
+xiazhu_kjstate       下注开奖状态
+xiazhu_orderid       下注订单号
+xiazhu_time          下注开奖时间
+
+17. 游戏玩法介绍列表  pmw_gamedes
+
+id
+game_name             游戏名称
+game_pic              游戏图标
+game_description      游戏玩法介绍
+game_time             更新时间
+
+18. 活动中心  pmw_active
+
+id
+active_onimages       活动上线图片图案
+active_offimages      活动下线图片图案
+active_name           活动名称
+active_description    活动简介
+active_statues        活动状态（0下线 1上线）
+active_time           活动添加时间（时间戳）
+orderid               活动排序
+
+19.后台登陆账号   pmw_admin
+
+id
+username              登陆用户名
+password              登陆密码
+nickname              昵称
+question              登陆提问
+answer                登陆回答
+levelname             级别
+checkadmin            审核（true false）
+loginip               登陆ip
+logintime             登陆时间
+
+20.用户反馈
+
+id
+mid                   会员id
+message               帮助反馈内容
+addtime               反馈时间（时间戳）
+addip                 反馈ip
+
+21.

@@ -1,0 +1,2 @@
+INSERT INTO `pmw_maintype` VALUES('1','1','0','0,','热门品牌','1','true');
+INSERT INTO `pmw_maintype` VALUES('2','1','1','0,1,','贝利','2','true');

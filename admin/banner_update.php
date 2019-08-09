@@ -66,7 +66,25 @@ $row = $dosql->GetOne("SELECT * FROM `pmw_banner` WHERE id=$id");
    <input style="margin-top:5px;width:390px;" type="text" name="pic" id="pic" class="input" value="<?php echo $row['pic']; ?>" />
 	 <span class="cnote"><span class="grayBtn" onclick="GetUploadify('uploadify','缩略图上传','image','image',1,20971520,'pic')">上 传</span></span></td>
 		</tr>
-
+    <tr id="pictures" >
+             <td height="40" align="right">添加内容：</td>
+             <td colspan="2"> <textarea style="padding:5px;" name="content" id="content" class="kindeditor"><?php echo $row['content']; ?></textarea>
+               <script>
+         var editor;
+         KindEditor.ready(function(K) {
+           editor = K.create('textarea[name="content"]', {
+             allowFileManager : true,
+             width:'80%',
+             height:'200px',
+             extraFileUploadParams : {
+               sessionid :  '<?php echo session_id(); ?>'
+             }
+           });
+         });
+         </script>
+        <span class="num" style="color:red;font-weight:bold; padding:5px; font-size:18px;" >编辑器里面的图片最大宽度为375，请在编辑器添加图片的时候修改图片的宽度！！!</span>
+       </td>
+           </tr>
    	<tr>
         	  <td height="40" align="right">更新时间：</td>
         	  <td colspan="2"> <input type="text" name="pictime" id="pictime" class="inputms" value="<?php echo GetDateTime(time()); ?>" />

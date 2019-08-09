@@ -127,7 +127,7 @@ $num=$dosql->GetTotalRow($one);
 ?>
 <input type="hidden" name="adminlevel" id="adminlevel" value="<?php echo $adminlevel;?>" />
 <div class="topToolbar">
-<span class="title">访客记录：<span class="num" style="color:red;"><?php echo $num;?></span>
+<span class="title">访问总次数：<span class="num" style="color:red;"><?php echo $num;?></span>
 </span> <a href="javascript:location.reload();" class="reload"><?php echo $cfg_reload;?></a>
 </div>
 <div class="toolbarTab" style="margin-bottom:5px;">
@@ -172,7 +172,7 @@ $num=$dosql->GetTotalRow($one);
 	    }elseif($check=="success"){ //男
 		$dopage->GetPage("SELECT a.id,b.nickname,b.sex,b.images,a.vtime,a.poster_id,a.vistor_openid FROM $tbname a inner join pmw_members b on a.vistor_openid=b.openid where b.sex=1 group by vistor_openid desc",15);
 	    }elseif($check=="failed"){ //女
-		$dopage->GetPage("SELECT a.id,b.nickname,b.sex,b.images,a.vtime,a.poster_id,a.vistor_openid FROM $tbname a inner join pmw_members b on a.vistor_openid=b.openid where b.sex=0 group by vistor_openid desc",15);
+		$dopage->GetPage("SELECT a.id,b.nickname,b.sex,b.images,a.vtime,a.poster_id,a.vistor_openid FROM $tbname a inner join pmw_members b on a.vistor_openid=b.openid where b.sex=2 group by vistor_openid desc",15);
 	    }elseif($check=="reviewed"){ //待审核
 		$dopage->GetPage("SELECT * from $tbname where checkinfo = 0",15);
 	    }
@@ -186,17 +186,20 @@ $num=$dosql->GetTotalRow($one);
 		while($row = $dosql->GetArray())
 		{
 			switch($row['sex']){
-				
-				case 1:
-					$sex = "<i title='男' style='font-size:16px;color: #0619e699;' class='fa fa-venus' aria-hidden='true'></i>";
+
+        case 1:
+					$sex = "<i title='男' style='font-size:16px;color: blue; font-weight:bold;' class='fa fa-venus' aria-hidden='true'></i>";
 					break;
-				case 0:
-					$sex = "<i title='女' style='font-size:16px;color: red;' class='fa fa-mercury' aria-hidden='true'></i>";
+				case 2:
+					$sex = "<i title='女' style='font-size:16px;color: red;font-weight:bold;' class='fa fa-mercury' aria-hidden='true'></i>";
 					break;
-				
-				
+        case 0:
+            $sex = "<i title='未知' style='font-size:16px;font-weight:bold;' class='fa fa-minus-circle' aria-hidden='true'></i>";
+            break;
+
+
 			}
-			
+
 			$vtime=date("Y-m-d H:i:s",$row['vtime']);
 
 		?>

@@ -53,7 +53,7 @@ function sets(id,name) {
 
 
 function change_vip(id) {
-	
+
   layer.confirm("确定要给此用户添加VIP权限吗?", function () {
   window.location.href="admin_save.php?action=change_vip&id="+id;
   }
@@ -129,16 +129,19 @@ $num=$dosql->GetTotalRow($one);
 		while($row = $dosql->GetArray())
 		{
 			$id=$row['id'];
-			
+
 			switch($row['sex'])
 			{
+
 				case 1:
 					$sex = "<i title='男' style='font-size:16px;color: blue; font-weight:bold;' class='fa fa-venus' aria-hidden='true'></i>";
 					break;
-				case 0:
+				case 2:
 					$sex = "<i title='女' style='font-size:16px;color: red;font-weight:bold;' class='fa fa-mercury' aria-hidden='true'></i>";
 					break;
-
+        case 0:
+            $sex = "<i title='未知' style='font-size:16px;font-weight:bold;' class='fa fa-minus-circle' aria-hidden='true'></i>";
+            break;
 			}
 
 
@@ -150,7 +153,7 @@ $num=$dosql->GetTotalRow($one);
 							case 0:
 								$vip = "<i onclick='change_vip({$row['id']})' title='否,点击给此用户添加vip权限' style='font-size:16px;color: red;font-weight:bold;cursor:pointer;' class='fa fa-vimeo' aria-hidden='true'></i>";
 								break;
-			
+
 						}
 
 			if($row['images']==""){
@@ -165,26 +168,26 @@ $num=$dosql->GetTotalRow($one);
                 <td align="center"><div id="layer-photos-demo_<?php  echo $row['id'];?>" class="layer-photos-demo"> <img  width="100px;" layer-src="<?php echo $images;?>" style="cursor:pointer" onclick="message('<?php echo $row['id']; ?>');"  src="<?php echo $images;?>" alt="<?php echo $row['nickname']; ?>" /></div></td>
                 <td align="center" class="num"><?php echo $sex; ?></td>
                 <td align="center" class="num" ><a style="color:#C3C" href="guide.php?check=openid&openid=<?php echo $row['openid'];?>"><?php
-				  
+
 				  $openid=$row['openid'];
-				  
+
 				  $two=2;
-				  
+
 				  $dosql->Execute("SELECT * FROM pmw_publish where openid= '$openid'",$two);
 
 				  $nums = $dosql->GetTotalRow($two);
-			
+
 				  echo $nums;
 				  ?></a>
                 </td>
                 <td align="center" class="num" ><a style="color:#396" href="guide.php?check=openid_success&openid=<?php echo $row['openid'];?>"><?php
-				  
+
 				  $three=3;
-				  
+
 				  $dosql->Execute("SELECT * FROM pmw_publish where openid= '$openid' and checkinfo=1",$three);
 
 				  $nums = $dosql->GetTotalRow($three);
-			
+
 				  echo $nums;
 				  ?></a></td>
                 <td align="center" class="num">

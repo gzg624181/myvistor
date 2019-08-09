@@ -123,6 +123,7 @@ class WeixinPay {
             'timeStamp' => '' . time() . '', //时间戳
             'nonceStr' => $this->createNoncestr(), //随机串
             'package' => 'prepay_id=' . $unifiedorder['prepay_id'], //数据包
+            //'package' => 'prepay_id=F1F256BCD3A5170367C199A5FB2EAA05',
             'signType' => 'MD5'//签名方式
         );
         //签名

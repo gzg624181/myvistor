@@ -163,21 +163,24 @@ $num=$dosql->GetTotalRow($one);
                 </tr>
               <?php
 		$dopage->GetPage("SELECT a.id,b.nickname,b.sex,b.images,a.vtime,a.poster_id,a.vistor_openid FROM $tbname a inner join pmw_members b on a.vistor_openid=b.openid where a.vistor_openid='$openid'",15);
-		
+
 		while($row = $dosql->GetArray())
 		{
 			switch($row['sex']){
-				
-				case 1:
-					$sex = "<i title='男' style='font-size:16px;color: #0619e699;' class='fa fa-venus' aria-hidden='true'></i>";
+
+        case 1:
+					$sex = "<i title='男' style='font-size:16px;color: blue; font-weight:bold;' class='fa fa-venus' aria-hidden='true'></i>";
 					break;
-				case 0:
-					$sex = "<i title='女' style='font-size:16px;color: red;' class='fa fa-mercury' aria-hidden='true'></i>";
+				case 2:
+					$sex = "<i title='女' style='font-size:16px;color: red;font-weight:bold;' class='fa fa-mercury' aria-hidden='true'></i>";
 					break;
-				
-				
+        case 0:
+            $sex = "<i title='未知' style='font-size:16px;font-weight:bold;' class='fa fa-minus-circle' aria-hidden='true'></i>";
+            break;
+
+
 			}
-			
+
 			$vtime=date("Y-m-d H:i:s",$row['vtime']);
 
 		?>

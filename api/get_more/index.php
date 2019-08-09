@@ -26,9 +26,10 @@ if(isset($token) && $token==$cfg_auth_key){
 
       $r=$dosql->GetOne("SELECT vip from pmw_members where openid='$openid'");
       $vip=$r['vip'];
+      
       $one=1;
 
-      $dosql->Execute("SELECT MAX(a.vtime) as vtime,b.nickname,b.images,b.sex,a.id FROM pmw_record a inner join pmw_members b on a.vistor_openid=b.openid where a.poster_id=$poster_id  group by a.vistor_openid ORDER BY vtime desc",$one);
+      $dosql->Execute("SELECT MAX(a.vtime) as vtime,b.nickname,b.images,b.sex,a.id,a.vistor_openid FROM pmw_record a inner join pmw_members b on a.vistor_openid=b.openid where a.poster_id=$poster_id  group by a.vistor_openid ORDER BY vtime desc",$one);
       $nums = $dosql->GetTotalRow($one);
       $paymoney=$cfg_vip;
       $orderid = date('YmdHis').rand(111111,999999);
@@ -62,8 +63,13 @@ if(isset($token) && $token==$cfg_auth_key){
       $row=$dosql->GetArray($one);
       $record[]=$row;
       $sex=$row['sex'];
-      switch($sex){ case 1: $sex="男"; break;case 0: $sex='女'; break;}
+      switch($sex){ case 1: $sex="男"; break;case 2: $sex='女'; break;}
       $record[$i]['sex']=$sex;
+      $three=3;
+      $vistor_openid = $row['vistor_openid'];
+      $dosql->Execute("SELECT id from pmw_record where poster_id=$poster_id and vistor_openid='$vistor_openid'",$three);
+      $all_nums = $dosql->GetTotalRow($three);
+      $record[$i]['allnums']=$all_nums;
       }
       //如果已经是vip客户，则直接在这个页面进行更改
       //更改还未查看的访客记录

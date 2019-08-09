@@ -17,7 +17,7 @@
      * @return string
      *
      * @访客点赞，每个用户对一个海报只允许点赞一次
-     * vistor_openid          访客openid
+     * id          访客mid
      * poster_id              海报id
      */
 require_once("../../include/config.inc.php");
@@ -27,6 +27,8 @@ if(isset($token) && $token==$cfg_auth_key){
 
   $vtime=time();  //点赞时间
 
+  $r = $dosql->GetOne("SELECT openid from pmw_members where id=$mid");
+  $vistor_openid = $r['openid'];
   //点赞次数加上1,每个海报每个访客只能点赞一次 ，如果已经点赞 ，则不需要再次增加
 
   $r=$dosql->GetOne("SELECT id FROM pmw_zan_record where vistor_openid='$vistor_openid' and poster_id=$poster_id");

@@ -607,10 +607,10 @@ function add_formid($openid,$formid)
  }
 
 
-function save_erweima($access_token,$xiaochengxu_path,$save_path,$url,$id,$openid) {
+function save_erweima($access_token,$xiaochengxu_path,$save_path,$url,$id,$uid,$poster) {
     $post_url = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=$access_token";
     $width = '200';
-  	$scene=$id."&".$openid;
+  	$scene = $uid."&".$id;   //uid发布人的用户id    id  当前动态的id
     $post_data='{"page":"'.$xiaochengxu_path.'","width":'.$width.',"scene":"'.$scene.'"}';
     $opts = array('http' =>
         array(

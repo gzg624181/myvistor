@@ -1,6 +1,6 @@
 <?php
     /**
-	   * 链接地址：get_member  获取用户个人信息
+	   * 链接地址：get_guizhe  获取实用攻略
 	   *
      * 下面直接来连接操作数据库进而得到json串
      *
@@ -16,19 +16,17 @@
      *
      * @return string
      *
-     * @ 用户uid
      */
 require_once("../../include/config.inc.php");
 $Data = array();
 $Version=date("Y-m-d H:i:s");
 if(isset($token) && $token==$cfg_auth_key){
 
+      $r=$dosql->GetOne("SELECT title,pictime, pic,content FROM pmw_banner where id=3");
 
-
-      $r=$dosql->GetOne("SELECT * FROM `#@__members` WHERE id='$uid'");
       if(!is_array($r)){
         $State = 0;
-        $Descriptor = '暂无数据！';
+        $Descriptor = '数据查询失败';
         $result = array (
                     'State' => $State,
                     'Descriptor' => $Descriptor,
@@ -37,11 +35,13 @@ if(isset($token) && $token==$cfg_auth_key){
                      );
         echo phpver($result);
       }else{
-      $sex=$r['sex'];
-      switch($sex){ case 1: $sex="男"; break;case 2: $sex='女'; break;}
-      $r['sex']=$sex;
+      $content=stripslashes($r['content']);
+      $content=rePic($content, $cfg_weburl);
+      $pic=$cfg_weburl."/".$r['pic'];
+      $r['content']=$content;
+      $r['pic']=$pic;
       $State = 1;
-      $Descriptor = '内容获取成功！';
+      $Descriptor = '查询成功';
       $result = array (
                   'State' => $State,
                   'Descriptor' => $Descriptor,

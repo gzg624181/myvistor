@@ -27,7 +27,7 @@ if(isset($token) && $token==$cfg_auth_key){
 
  if(isset($current_id) && $current_id!="" && isset($move) && $move!=""){
    if($move=="down"){ //往下翻的时候
-   $k = $dosql->GetOne("SELECT a.id,a.pic,a.qrcode,a.content,a.addtime,a.num,a.zan,b.nickname,b.images,a.openid FROM pmw_publish a inner join pmw_members b on a.openid=b.openid where a.checkinfo=1 and a.checkgongkai=1 and a.id>$current_id order by a.id asc limit 1");
+   $k = $dosql->GetOne("SELECT a.id,a.pic,a.qrcode,a.content,a.addtime,a.num,a.zan,b.nickname,b.images,a.openid,b.id as uid FROM pmw_publish a inner join pmw_members b on a.openid=b.openid where a.checkinfo=1 and a.checkgongkai=1 and a.id>$current_id order by a.id asc limit 1");
      if(is_array($k)){
        $k['pic'] = $cfg_weburl."/".$k['pic'];
        $k['qrcode'] = $cfg_weburl."/".$k['qrcode'];
@@ -52,7 +52,7 @@ if(isset($token) && $token==$cfg_auth_key){
        echo phpver($result);
      }
    }elseif($move=="up"){ //上划的时候
-     $k = $dosql->GetOne("SELECT a.id,a.pic,a.qrcode,a.content,a.addtime,a.num,a.zan,b.nickname,b.images,a.openid FROM pmw_publish a inner join pmw_members b on a.openid=b.openid where a.checkinfo=1 and a.checkgongkai=1 and a.id<$current_id order by a.id desc limit 1");
+     $k = $dosql->GetOne("SELECT a.id,a.pic,a.qrcode,a.content,a.addtime,a.num,a.zan,b.nickname,b.images,a.openid,b.id as uid FROM pmw_publish a inner join pmw_members b on a.openid=b.openid where a.checkinfo=1 and a.checkgongkai=1 and a.id<$current_id order by a.id desc limit 1");
 
        if(is_array($k)){
          $k['pic'] = $cfg_weburl."/".$k['pic'];
@@ -80,7 +80,7 @@ if(isset($token) && $token==$cfg_auth_key){
    }
  }else{
  //默认第一次进入首页页面的时候，自动将已审核的最新一条的会员发布的动态展示出来，也就是只能上翻
- $k = $dosql->GetOne("SELECT a.id,a.pic,a.qrcode,a.content,a.addtime,a.num,a.zan,b.nickname,b.images,a.openid FROM pmw_publish a inner join pmw_members b on a.openid=b.openid where a.checkinfo=1  and a.checkgongkai=1 order by a.id desc limit 1");
+ $k = $dosql->GetOne("SELECT a.id,a.pic,a.qrcode,a.content,a.addtime,a.num,a.zan,b.nickname,b.images,a.openid,b.id as uid FROM pmw_publish a inner join pmw_members b on a.openid=b.openid where a.checkinfo=1  and a.checkgongkai=1 order by a.id desc limit 1");
  if(is_array($k)){
  $k['pic'] = $cfg_weburl."/".$k['pic'];
  $k['qrcode'] = $cfg_weburl."/".$k['qrcode'];

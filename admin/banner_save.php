@@ -40,7 +40,7 @@ if($action == 'add')
 //     	$sql = "INSERT INTO `$tbname` (title, pic, type, pictime,typename) VALUES ('$title','$pic', '$type','$pictime','$typename')";
 // }
   $pictime= strtotime($pictime);
-	$sql = "INSERT INTO `$tbname` (title, pic,pictime) VALUES ('$title','$pic', $pictime)";
+	$sql = "INSERT INTO `$tbname` (title, pic,content,pictime) VALUES ('$title','$pic','$content', $pictime)";
 	if($dosql->ExecNoneQuery($sql))
 	{
 		header("location:$gourl");
@@ -64,7 +64,8 @@ else if($action == 'update')
 // }elseif($type=="text"){
 //   $sql = "UPDATE `$tbname` SET title='$title',pictime=$pictime, pic='$pic',typename='$typename',content='$content' WHERE id=$id";
 // }
-$sql = "UPDATE `$tbname` SET title='$title',pictime=$pictime, pic='$pic'WHERE id=$id";
+$sql = "UPDATE `$tbname` SET title='$title',pictime=$pictime, pic='$pic', content = '$content' WHERE id=$id";
+
 	if($dosql->ExecNoneQuery($sql))
 	{
 		header("location:$gourl");

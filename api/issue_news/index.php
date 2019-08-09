@@ -18,7 +18,7 @@
      *
      * @提供返回参数账号，
      * token              token
-     * openid            用户的openid
+     * uid               用户的uid
      * content           动态文字内容
      * pic               用户添加的图片
      */
@@ -39,14 +39,17 @@ if(isset($token) && $token==$cfg_auth_key){
 
   $content=$json['content'];
 
-  $openid=$json['openid'];
+  $uid=$json['uid'];
 
   $pic=$json['pic'];
 
+  $poster="haibao";
+
   $checkgongkai = $json['checkgongkai'];
 
-  $r=$dosql->GetOne("SELECT checkpost from pmw_members where openid='$openid'");
+  $r=$dosql->GetOne("SELECT checkpost,openid from pmw_members where id=$uid");
   $checkpost=$r['checkpost'];
+  $openid = $r['openid'];
   if($checkpost==1){
   //这个是自定义函数，将Base64图片转换为本地图片并保存
   $savepath= "../../uploads/image/";
@@ -54,12 +57,11 @@ if(isset($token) && $token==$cfg_auth_key){
   $pic = base64_image_content($pic,$savepath);
 
   $pic=str_replace("../../",'',$pic);
+
   $randnumber=rand(11111111,9999999);
+
   $sql = "INSERT INTO `#@__publish`(openid,content,pic,addtime,randnumber,checkgongkai) VALUES ('$openid','$content','$pic',$addtime,$randnumber,$checkgongkai)";
   $dosql->ExecNoneQuery($sql);
-
-  $r=$dosql->GetOne("SELECT id from pmw_publish where randnumber=$randnumber");
-  $id=$r['id'];
 
   $srcImg=$cfg_weburl."/".$pic;               //分享的背景图片
   $image_blur = new image_blur();
@@ -67,17 +69,20 @@ if(isset($token) && $token==$cfg_auth_key){
   $srcImg = $cfg_weburl."/uploads/erweima/".$randnumber.".png";
 
   //1.第一步 先生成小程序二维码
-  $xiaochengxu_path="pages/play/index";  //默认扫码之后进入的页面
+  $xiaochengxu_path="pages/scan/index";  //默认扫码之后进入的页面
 	$erweima_name=date("Ymdhis");
 	$url="uploads/erweima/".$erweima_name.".png";
 	$save_path="../../".$url;         //生成成功之后的二维码地址
 	$access_token=token($cfg_appid,$cfg_appsecret);
-  $erweima= save_erweima($access_token,$xiaochengxu_path,$save_path,$url,$id,$openid);
+  $r=$dosql->GetOne("SELECT id from pmw_publish where randnumber=$randnumber");
+  $id=$r['id'];   //发布的此条动态的id
+  $erweima= save_erweima($access_token,$xiaochengxu_path,$save_path,$url,$id,$uid,$poster);
 
   //2.将背景图片和生成的二维码进行合并
   $savename="new_".$erweima_name.".png";
   $savepath="../../uploads/erweima";
   $erweima="../../".$erweima;
+
   $newimg=img_water_mark($srcImg, $erweima, $savepath, $savename, $positon=3, $alpha=100);
   $newimg = str_replace("../../",'',$newimg);
 

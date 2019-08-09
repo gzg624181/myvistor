@@ -135,17 +135,21 @@ $adminlevel=$_SESSION['adminlevel'];
 					break;
 				}
 
-				switch($row['sex'])
-			{
-				case 1:
-					$sex = "<i title='男' style='font-size:16px;color: blue; font-weight:bold;' class='fa fa-venus' aria-hidden='true'></i>";
-					break;
-				case 0:
-					$sex = "<i title='女' style='font-size:16px;color: red;font-weight:bold;' class='fa fa-mercury' aria-hidden='true'></i>";
-					break;
+        switch($row['sex']){
 
-			}
-			
+          case 1:
+  					$sex = "<i title='男' style='font-size:16px;color: blue; font-weight:bold;' class='fa fa-venus' aria-hidden='true'></i>";
+  					break;
+  				case 2:
+  					$sex = "<i title='女' style='font-size:16px;color: red;font-weight:bold;' class='fa fa-mercury' aria-hidden='true'></i>";
+  					break;
+          case 0:
+              $sex = "<i title='未知' style='font-size:16px;font-weight:bold;' class='fa fa-minus-circle' aria-hidden='true'></i>";
+              break;
+
+
+  			}
+
 			switch($row['device'])
 			{
 				case 1:
@@ -156,7 +160,7 @@ $adminlevel=$_SESSION['adminlevel'];
 					break;
 				default:
 				    $device = "<i title='PC' class='fa fa-desktop' aria-hidden='true'></i>";
-					break; 
+					break;
 
 			}
 		?>

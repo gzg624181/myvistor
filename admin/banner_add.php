@@ -133,24 +133,8 @@
  </td>
 </tr>
 
-
-		<!--<tr id="urlss"  style="display:none;">
-		  <td height="40" align="right">跳转链接：</td>
-
-		  <td colspan="2">
-				<select name="linkurl" id="linkurl" class="input" style="width:508px;">
-		               <?php
-		      $dosql->Execute("SELECT * FROM pmw_ticket order by id asc");
-		      while($row=$dosql->GetArray()){
-		      ?>
-		    <option value="<?php echo $row['id'];?>"><?php echo $row['names'];?></option>
-		    <?php }?>
-		    </select>
-			</td>
-    </tr>
--->
-<!--    <tr id="pictures" style="display:none;">
-        	  <td height="40" align="right">图片简介：</td>
+   <tr id="pictures" >
+        	  <td height="40" align="right">添加内容：</td>
         	  <td colspan="2"> <textarea style="padding:5px;" name="content" id="content" class="kindeditor"></textarea>
        	      <script>
 				var editor;
@@ -167,7 +151,7 @@
 				</script>
        <span class="num" style="color:red;font-weight:bold; padding:5px; font-size:18px;" >编辑器里面的图片最大宽度为375，请在编辑器添加图片的时候修改图片的宽度！！!</span>
 			</td>
-       	  </tr>-->
+       	  </tr>
         	<tr>
         	  <td height="40" align="right">更新时间：</td>
         	  <td colspan="2"> <input type="text" name="pictime" id="pictime" class="inputms" value="<?php echo GetDateTime(time()); ?>" />

@@ -16,7 +16,7 @@
      *
      * @return string
      *
-     * @用户的openid
+     * @用户的openid=》  改为mid，通过mid获取发布者的openid
      */
 require_once("../../include/config.inc.php");
 $Data = array();
@@ -26,14 +26,18 @@ if(isset($token) && $token==$cfg_auth_key){
       //计算被访问次数，总的动态和访问次数
       $one=1;
 
+       // 计算用户的openid
+       $r = $dosql->GetOne("SELECT openid from pmw_members where id=$mid");
+       $openid = $r['openid'];
+
       $dosql->Execute("SELECT id FROM `#@__record` WHERE member_openid='$openid'",$one);
       $nums = $dosql->GetTotalRow($one);
 
       if($nums==0){
         $list=array();
         $Data= array(
-            "nums"=>0,
-            "list"=>$list
+            "nums" => 0,
+            "list" => $list
              );
         $State = 0;
         $Descriptor = '当前暂无发布的动态！';

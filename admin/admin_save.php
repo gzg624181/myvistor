@@ -188,6 +188,11 @@ else if($action=="rules_update"){
 	$gourl="members.php";
 
 	header("LOCATION:$gourl");
+}elseif($action=="xieyi_update"){
+	$dosql->ExecNoneQuery("UPDATE pmw_rules SET content='$content' where id=1");
+	$gourl="rules.php";
+
+	header("LOCATION:$gourl");
 }
 //无条件返回
 else

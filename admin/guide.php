@@ -171,9 +171,9 @@ $num=$dosql->GetTotalRow($one);
 		$time=date("Y-m-d",strtotime("-1 day"));
 		$dopage->GetPage("select * from $tbname where ymdtime = '$time'",15);
 	    }elseif($check=="openid"){  //查询用户发布的所有动态
-		$dopage->GetPage("SELECT a.id,a.content,a.pic,a.qrcode,b.nickname,b.sex,b.images,a.addtime,a.num,a.zan,a.checkinfo ,a.checkpost,a.openid,a.checkgongkai FROM $tbname a inner join pmw_members b on a.openid=b.openid where a.openid='$openid'",15);	
+		$dopage->GetPage("SELECT a.id,a.content,a.pic,a.qrcode,b.nickname,b.sex,b.images,a.addtime,a.num,a.zan,a.checkinfo ,a.checkpost,a.openid,a.checkgongkai FROM $tbname a inner join pmw_members b on a.openid=b.openid where a.openid='$openid'",15);
 		}elseif($check=="openid_success"){  //查询用户发布的所有动态
-		$dopage->GetPage("SELECT a.id,a.content,a.pic,a.qrcode,b.nickname,b.sex,b.images,a.addtime,a.num,a.zan,a.checkinfo ,a.checkpost,a.openid,a.checkgongkai FROM $tbname a inner join pmw_members b on a.openid=b.openid where a.openid='$openid' and checkinfo=1",15);	
+		$dopage->GetPage("SELECT a.id,a.content,a.pic,a.qrcode,b.nickname,b.sex,b.images,a.addtime,a.num,a.zan,a.checkinfo ,a.checkpost,a.openid,a.checkgongkai FROM $tbname a inner join pmw_members b on a.openid=b.openid where a.openid='$openid' and checkinfo=1",15);
 		}
 		elseif($check=="success"){ //已通过
 		$dopage->GetPage("SELECT a.id,a.content,a.pic,a.qrcode,b.nickname,b.sex,b.images,a.addtime,a.num,a.zan,a.checkinfo,a.checkpost,a.openid,a.checkgongkai FROM $tbname a inner join pmw_members b on a.openid=b.openid where checkinfo=1",15);
@@ -196,15 +196,18 @@ $num=$dosql->GetTotalRow($one);
 			$openid=$row['openid'];
 			switch($row['sex'])
 			{
-			   case 1:
-					$sex = "<i title='男' style='font-size:16px;color: #0619e699;' class='fa fa-venus' aria-hidden='true'></i>";
-					break;
-				case 0:
-					$sex = "<i title='女' style='font-size:16px;color: red;' class='fa fa-mercury' aria-hidden='true'></i>";
-					break;
+        case 1:
+         $sex = "<i title='男' style='font-size:16px;color: blue; font-weight:bold;' class='fa fa-venus' aria-hidden='true'></i>";
+         break;
+       case 2:
+         $sex = "<i title='女' style='font-size:16px;color: red;font-weight:bold;' class='fa fa-mercury' aria-hidden='true'></i>";
+         break;
+        case 0:
+            $sex = "<i title='未知' style='font-size:16px;font-weight:bold;' class='fa fa-minus-circle' aria-hidden='true'></i>";
+            break;
 
 			}
-			
+
 			switch($row['checkgongkai'])
 			{
 			   case 1:
@@ -227,7 +230,7 @@ $num=$dosql->GetTotalRow($one);
 			 $checkinfo = "<i style='color:#509ee1; cursor:pointer;' title='已审核' class='fa fa-dot-circle-o' aria-hidden='true'></i>";
 
 			}
-			
+
 			 if($row['checkpost']==1){
 
 			 $checkpost = "<a href='agency_save.php?action=checkpost&id={$id}&openid={$openid}'><i onclick='return ConfCheck(3);' style='color:blue; cursor:pointer;' title='点击禁止用户发布动态' class='fa fa-check' aria-hidden='true'></i></a>&nbsp;&nbsp;";

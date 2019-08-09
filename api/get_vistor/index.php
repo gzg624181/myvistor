@@ -29,7 +29,7 @@ if(isset($token) && $token==$cfg_auth_key){
       $dosql->Execute("SELECT * from pmw_record  where poster_id=$id",$one);
       $num=$dosql->GetTotalRow($one);
 
-    
+
 
       if($num==0){
         $State = 0;
@@ -42,11 +42,16 @@ if(isset($token) && $token==$cfg_auth_key){
                      );
         echo phpver($result);
       }else{
-      $dosql->Execute("SELECT b.nickname,b.images,b.sex,a.vtime FROM pmw_record a inner join pmw_members b on a.vistor_openid=b.openid where
+      $dosql->Execute("SELECT b.nickname,b.images,b.sex,a.vtime,a.vistor_openid FROM pmw_record a inner join pmw_members b on a.vistor_openid=b.openid where
       a.poster_id=$id order by vtime desc limit 1",$two);
       for($i=0;$i<$dosql->GetTotalRow($two);$i++){
       $row=$dosql->GetArray($two);
+      $three=3;
+      $vistor_openid = $row['vistor_openid'];
+      $dosql->Execute("SELECT id from pmw_record where poster_id=$id and vistor_openid='$vistor_openid'",$three);
+      $all_nums = $dosql->GetTotalRow($three);
       $list[]=$row;
+      $list[$i]['allnums']= $all_nums;
       }
 
       $Data = array(

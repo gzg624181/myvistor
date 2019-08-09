@@ -57,6 +57,7 @@ $row=$dosql->GetOne("SELECT * FROM pmw_rules where id=1");
     <input type="submit" class="submit" value="保存" />
 		<input type="button" class="back" value="返回" onclick="history.go(-1);" />
 		<input type="hidden" name="action" id="action" value="xieyi_update" />
+    <input type="hidden" name="id" id="id" value="<?php echo $id; ?>" />
    </div></td>
    </tr>
   </table>
